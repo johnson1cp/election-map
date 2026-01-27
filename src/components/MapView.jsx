@@ -450,7 +450,7 @@ export default function MapView({
     // Main dots radius
     map.setPaintProperty('county-dots-layer', 'circle-radius', [
       'interpolate', ['linear'], ['zoom'],
-      3, ['max', 1.5, ['*', ['^', ['coalesce', ['get', totalProp], 0], 0.5], 0.007]],
+      3, ['max', 1.5, ['*', ['^', ['coalesce', ['get', totalProp], 0], 0.5], 0.004]],
       8, ['max', 4, ['*', ['^', ['coalesce', ['get', totalProp], 0], 0.5], 0.015]],
     ]);
 
