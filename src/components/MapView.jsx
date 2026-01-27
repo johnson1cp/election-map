@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import { BasemapStyle } from '@esri/maplibre-arcgis';
 import { feature } from 'topojson-client';
-import { getResultColor } from '../utils/colorScale';
+import { getResultColor, getMarginColor } from '../utils/colorScale';
 import { STATE_FIPS, STATE_NAMES, STATE_TO_FIPS } from '../utils/constants';
 
 const MAP_STYLE = {
@@ -146,7 +146,7 @@ export default function MapView({
         type: 'line',
         source: 'states',
         paint: {
-          'line-color': '#555',
+          'line-color': '#000000',
           'line-width': 0.8,
         },
       }, beforeLabel);
@@ -169,7 +169,7 @@ export default function MapView({
         source: 'states',
         paint: {
           'fill-color': '#ffffff',
-          'fill-opacity': 0.08,
+          'fill-opacity': 0,
         },
         filter: ['==', ['id'], ''],
       }, beforeLabel);
@@ -180,8 +180,8 @@ export default function MapView({
         source: 'states',
         paint: {
           'line-color': '#ffffff',
-          'line-width': 1.5,
-          'line-opacity': 0.6,
+          'line-width': 2,
+          'line-opacity': 1,
         },
         filter: ['==', ['id'], ''],
       }, beforeLabel);
@@ -251,9 +251,9 @@ export default function MapView({
         type: 'line',
         source: 'counties',
         paint: {
-          'line-color': '#666',
-          'line-width': 0.4,
-          'line-opacity': 0.5,
+          'line-color': '#000000',
+          'line-width': 0.6,
+          'line-opacity': 0.75,
         },
         layout: { visibility: 'none' },
       }, beforeLabel);
@@ -265,7 +265,7 @@ export default function MapView({
         source: 'counties',
         paint: {
           'fill-color': '#ffffff',
-          'fill-opacity': 0.15,
+          'fill-opacity': 0.08,
         },
         filter: ['==', ['id'], ''],
       }, beforeLabel);
@@ -277,7 +277,7 @@ export default function MapView({
         source: 'counties',
         paint: {
           'line-color': '#ffffff',
-          'line-width': 1.5,
+          'line-width': 1,
         },
         filter: ['==', ['id'], ''],
       }, beforeLabel);
@@ -486,18 +486,10 @@ export default function MapView({
     if (!map || !mapLoaded || !dotsData) return;
     if (!map.getLayer('county-dots-layer')) return;
 
-    if (selectedState) {
-      const fips = STATE_TO_FIPS[selectedState];
-      const filter = ['==', ['get', 'state_fips'], fips];
-      map.setFilter('county-dots-layer', filter);
-      if (map.getLayer('county-dots-glow')) {
-        map.setFilter('county-dots-glow', filter);
-      }
-    } else {
-      map.setFilter('county-dots-layer', null);
-      if (map.getLayer('county-dots-glow')) {
-        map.setFilter('county-dots-glow', null);
-      }
+    // Show all county dots regardless of selected state
+    map.setFilter('county-dots-layer', null);
+    if (map.getLayer('county-dots-glow')) {
+      map.setFilter('county-dots-glow', null);
     }
   }, [mapLoaded, selectedState, dotsData]);
 
@@ -521,30 +513,34 @@ export default function MapView({
     }
   }, [mapLoaded, results, year]);
 
-  // Update county colors when state data changes
+  // Update county colors from dotsData (all counties) when drilling in
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !mapLoaded || !selectedState || !stateData) return;
-
-    const stateYearData = stateData[year];
-    if (!stateYearData?.counties) return;
+    if (!map || !mapLoaded || !selectedState || !dotsData) return;
 
     const colorExpr = ['match', ['to-string', ['id']]];
     let hasEntries = false;
 
-    Object.entries(stateYearData.counties).forEach(([fips, result]) => {
-      const color = getResultColor(result);
-      colorExpr.push(String(Number(fips)), color);
-      hasEntries = true;
-    });
+    const yearPrefix = `y${year}`;
+    for (const feat of dotsData.features) {
+      const props = feat.properties;
+      const margin = props[`${yearPrefix}_margin`];
+      const winner = props[`${yearPrefix}_winner`];
+      if (margin != null && winner) {
+        const color = getMarginColor(Math.abs(margin), winner);
+        colorExpr.push(String(Number(props.fips)), color);
+        hasEntries = true;
+      }
+    }
 
     if (!hasEntries) return;
     colorExpr.push('#555'); // default
 
     if (map.getLayer('counties-fill')) {
       map.setPaintProperty('counties-fill', 'fill-color', colorExpr);
+      map.setPaintProperty('counties-fill', 'fill-opacity', 0.2);
     }
-  }, [mapLoaded, selectedState, stateData, year]);
+  }, [mapLoaded, selectedState, dotsData, year]);
 
   // Show/hide county layer based on selection
   useEffect(() => {
@@ -561,23 +557,16 @@ export default function MapView({
       map.setLayoutProperty('counties-labels-bg', 'visibility', 'none');
 
       if (selectedState) {
-        const fips = STATE_TO_FIPS[selectedState];
-        const minId = Number(fips) * 1000;
-        const maxId = minId + 999;
-        const stateFilter = [
-          'all',
-          ['>=', ['id'], minId],
-          ['<=', ['id'], maxId],
-        ];
-        map.setFilter('counties-fill', stateFilter);
-        map.setFilter('counties-border', stateFilter);
+        // Show all counties (no filter) — selected state is distinguished by highlight border
+        map.setFilter('counties-fill', null);
+        map.setFilter('counties-border', null);
       }
     }
 
     // Adjust state layer when zoomed into a state
     if (map.getLayer('states-fill')) {
       if (selectedState) {
-        map.setPaintProperty('states-border', 'line-width', 0.5);
+        map.setPaintProperty('states-border', 'line-width', 1.2);
         // White overlay + border on selected state
         const stateFipsNum = Number(STATE_TO_FIPS[selectedState]);
         map.setFilter('state-highlight-fill', ['==', ['id'], stateFipsNum]);
