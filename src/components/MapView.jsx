@@ -73,11 +73,15 @@ export default function MapView({
             const firstLabel = layers.find((l) => l.type === 'symbol');
             basemapLabelLayerRef.current = firstLabel?.id || null;
 
-            // Tone down basemap labels — smaller text, lower opacity
+            // Tone down basemap labels — lower opacity, but keep state names prominent
             layers.forEach((l) => {
               if (l.type === 'symbol') {
                 try {
-                  map.setPaintProperty(l.id, 'text-opacity', 0.8);
+                  const isStateLabel = l.id.startsWith('Admin1 area/label');
+                  map.setPaintProperty(l.id, 'text-opacity', isStateLabel ? 1.0 : 0.8);
+                  if (isStateLabel) {
+                    map.setPaintProperty(l.id, 'text-color', '#ffffff');
+                  }
                 } catch (_) {
                   // Some layers may not support these properties
                 }
