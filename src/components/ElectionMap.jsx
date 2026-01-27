@@ -15,6 +15,7 @@ export default function ElectionMap() {
   const [countiesGeo, setCountiesGeo] = useState(null);
   const [selectedState, setSelectedState] = useState(null);
   const [tooltip, setTooltip] = useState(null);
+  const [dotsData, setDotsData] = useState(null);
 
   const { nationalData, stateData, loading, loadStateData } = useElectionData(raceType);
 
@@ -23,6 +24,14 @@ export default function ElectionMap() {
     fetch('/data/geo/us-states.json')
       .then((res) => res.json())
       .then(setStatesGeo)
+      .catch(console.error);
+  }, []);
+
+  // Load county dots data
+  useEffect(() => {
+    fetch('/data/results/presidential/county-dots.json')
+      .then((res) => res.json())
+      .then(setDotsData)
       .catch(console.error);
   }, []);
 
@@ -95,6 +104,7 @@ export default function ElectionMap() {
           <MapView
             statesGeo={statesGeo}
             countiesGeo={countiesGeo}
+            dotsData={dotsData}
             results={nationalData}
             stateData={stateData[selectedState]}
             year={year}

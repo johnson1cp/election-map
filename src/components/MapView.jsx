@@ -1,5 +1,6 @@
-import { useEffect, useRef, useCallback, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
+import { BasemapStyle } from '@esri/maplibre-arcgis';
 import { feature } from 'topojson-client';
 import { getResultColor } from '../utils/colorScale';
 import { STATE_FIPS, STATE_NAMES, STATE_TO_FIPS } from '../utils/constants';
@@ -23,6 +24,7 @@ const US_BOUNDS = [[-130, 24], [-65, 50]];
 export default function MapView({
   statesGeo,
   countiesGeo,
+  dotsData,
   results,
   stateData,
   year,
@@ -34,7 +36,10 @@ export default function MapView({
 }) {
   const containerRef = useRef(null);
   const mapRef = useRef(null);
+  const basemapLabelLayerRef = useRef(null);
   const [mapLoaded, setMapLoaded] = useState(false);
+  const selectedStateRef = useRef(selectedState);
+  selectedStateRef.current = selectedState;
 
   // Initialize map
   useEffect(() => {
@@ -51,8 +56,37 @@ export default function MapView({
 
     map.on('load', () => {
       mapRef.current = map;
-      setMapLoaded(true);
-      onMapReady?.();
+
+      const arcgisKey = import.meta.env.VITE_ARCGIS_API_KEY;
+      if (arcgisKey) {
+        const basemapStyle = BasemapStyle.applyStyle(map, {
+          style: 'arcgis/navigation-night',
+          token: arcgisKey,
+        });
+
+        basemapStyle.on('BasemapStyleLoad', () => {
+          map.once('idle', () => {
+            // Find the first symbol (label) layer from the basemap so we
+            // can insert our choropleth fills below it, letting basemap
+            // labels, roads, and terrain details render on top.
+            const layers = map.getStyle().layers || [];
+            const firstLabel = layers.find((l) => l.type === 'symbol');
+            basemapLabelLayerRef.current = firstLabel?.id || null;
+
+            setMapLoaded(true);
+            onMapReady?.();
+          });
+        });
+
+        basemapStyle.on('BasemapStyleError', () => {
+          // Fall back — keep white background
+          setMapLoaded(true);
+          onMapReady?.();
+        });
+      } else {
+        setMapLoaded(true);
+        onMapReady?.();
+      }
     });
 
     return () => {
@@ -77,36 +111,63 @@ export default function MapView({
         data: statesGeojson,
       });
 
+      // Insert fills below basemap labels so terrain/road details show on top
+      const beforeLabel = basemapLabelLayerRef.current || undefined;
+
       map.addLayer({
         id: 'states-fill',
         type: 'fill',
         source: 'states',
         paint: {
           'fill-color': '#555',
-          'fill-opacity': 0.9,
+          'fill-opacity': 0.35,
         },
-      });
+      }, beforeLabel);
 
       map.addLayer({
         id: 'states-border',
         type: 'line',
         source: 'states',
         paint: {
-          'line-color': '#888',
+          'line-color': '#555',
           'line-width': 0.8,
         },
-      });
+      }, beforeLabel);
 
       map.addLayer({
         id: 'states-hover',
         type: 'line',
         source: 'states',
         paint: {
-          'line-color': '#333',
+          'line-color': '#aaa',
           'line-width': 2,
         },
         filter: ['==', 'id', ''],
-      });
+      }, beforeLabel);
+
+      // Selected state highlight — subtle white overlay + white border
+      map.addLayer({
+        id: 'state-highlight-fill',
+        type: 'fill',
+        source: 'states',
+        paint: {
+          'fill-color': '#ffffff',
+          'fill-opacity': 0.08,
+        },
+        filter: ['==', ['id'], ''],
+      }, beforeLabel);
+
+      map.addLayer({
+        id: 'state-highlight-border',
+        type: 'line',
+        source: 'states',
+        paint: {
+          'line-color': '#ffffff',
+          'line-width': 1.5,
+          'line-opacity': 0.6,
+        },
+        filter: ['==', ['id'], ''],
+      }, beforeLabel);
 
       // Click handler
       map.on('click', 'states-fill', (e) => {
@@ -155,27 +216,54 @@ export default function MapView({
         data: countiesGeojson,
       });
 
+      const beforeLabel = basemapLabelLayerRef.current || undefined;
+
       map.addLayer({
         id: 'counties-fill',
         type: 'fill',
         source: 'counties',
         paint: {
           'fill-color': '#555',
-          'fill-opacity': 0.9,
+          'fill-opacity': 0.3,
         },
         layout: { visibility: 'none' },
-      });
+      }, beforeLabel);
 
       map.addLayer({
         id: 'counties-border',
         type: 'line',
         source: 'counties',
         paint: {
-          'line-color': '#999',
+          'line-color': '#666',
           'line-width': 0.4,
+          'line-opacity': 0.5,
         },
         layout: { visibility: 'none' },
-      });
+      }, beforeLabel);
+
+      // Hover highlight — white fill boost on hovered county
+      map.addLayer({
+        id: 'counties-hover-fill',
+        type: 'fill',
+        source: 'counties',
+        paint: {
+          'fill-color': '#ffffff',
+          'fill-opacity': 0.15,
+        },
+        filter: ['==', ['id'], ''],
+      }, beforeLabel);
+
+      // Hover highlight — white border on hovered county
+      map.addLayer({
+        id: 'counties-hover-border',
+        type: 'line',
+        source: 'counties',
+        paint: {
+          'line-color': '#ffffff',
+          'line-width': 1.5,
+        },
+        filter: ['==', ['id'], ''],
+      }, beforeLabel);
 
       // Labels for selected state (white on colored fills)
       map.addLayer({
@@ -186,7 +274,7 @@ export default function MapView({
           visibility: 'none',
           'text-field': ['upcase', ['get', 'name']],
           'text-size': 11,
-          'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
+          'text-font': ['Noto Sans Regular'],
           'text-anchor': 'center',
           'text-allow-overlap': false,
           'text-ignore-placement': false,
@@ -194,10 +282,12 @@ export default function MapView({
         },
         paint: {
           'text-color': '#ffffff',
+          'text-halo-color': 'rgba(0, 0, 0, 0.7)',
+          'text-halo-width': 1.5,
         },
       });
 
-      // Labels for non-selected states (black on grey)
+      // Labels for non-selected states (light on dark)
       map.addLayer({
         id: 'counties-labels-bg',
         type: 'symbol',
@@ -206,32 +296,193 @@ export default function MapView({
           visibility: 'none',
           'text-field': ['upcase', ['get', 'name']],
           'text-size': 10,
-          'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
+          'text-font': ['Noto Sans Regular'],
           'text-anchor': 'center',
           'text-allow-overlap': false,
           'text-ignore-placement': false,
           'text-letter-spacing': 0.05,
         },
         paint: {
-          'text-color': '#333333',
+          'text-color': '#cccccc',
+          'text-halo-color': 'rgba(0, 0, 0, 0.7)',
+          'text-halo-width': 1.5,
         },
       });
 
-      // County hover
+      // County hover — highlight + tooltip
       map.on('mousemove', 'counties-fill', (e) => {
+        map.getCanvas().style.cursor = 'pointer';
         if (e.features?.length > 0) {
           const feat = e.features[0];
           const fips = String(feat.id).padStart(5, '0');
           const name = feat.properties?.name || null;
+          map.setFilter('counties-hover-fill', ['==', ['id'], feat.id]);
+          map.setFilter('counties-hover-border', ['==', ['id'], feat.id]);
           onCountyHover?.(e, fips, name);
         }
       });
 
       map.on('mouseleave', 'counties-fill', () => {
+        map.getCanvas().style.cursor = '';
+        map.setFilter('counties-hover-fill', ['==', ['id'], '']);
+        map.setFilter('counties-hover-border', ['==', ['id'], '']);
         onCountyHover?.(null);
       });
+
+      // Re-order dots layers above county fills if they were added earlier
+      if (map.getLayer('county-dots-glow')) {
+        map.moveLayer('county-dots-glow', 'counties-labels');
+      }
+      if (map.getLayer('county-dots-layer')) {
+        map.moveLayer('county-dots-layer', 'counties-labels');
+      }
     }
   }, [mapLoaded, countiesGeo, onCountyHover]);
+
+  // Add county-dots source and layers when dotsData is available
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mapLoaded || !dotsData) return;
+
+    if (map.getSource('county-dots')) {
+      map.getSource('county-dots').setData(dotsData);
+    } else {
+      map.addSource('county-dots', {
+        type: 'geojson',
+        data: dotsData,
+      });
+
+      // Place dots above county fills/borders but below labels
+      const beforeLayer = map.getLayer('counties-labels') ? 'counties-labels' : undefined;
+
+      // Glow layer — added first (below main dots)
+      map.addLayer({
+        id: 'county-dots-glow',
+        type: 'circle',
+        source: 'county-dots',
+        paint: {
+          'circle-radius': 3,
+          'circle-color': '#888',
+          'circle-opacity': 0.4,
+          'circle-blur': 1,
+          'circle-stroke-width': 0,
+        },
+      }, beforeLayer);
+
+      // Main dots layer
+      map.addLayer({
+        id: 'county-dots-layer',
+        type: 'circle',
+        source: 'county-dots',
+        paint: {
+          'circle-radius': 3,
+          'circle-color': '#888',
+          'circle-opacity': 0.85,
+          'circle-stroke-width': 0.5,
+          'circle-stroke-color': 'rgba(0,0,0,0.6)',
+        },
+      }, beforeLayer);
+
+      // Click handler — navigate to state in national view
+      map.on('click', 'county-dots-layer', (e) => {
+        if (e.features?.length > 0 && !selectedStateRef.current) {
+          const feat = e.features[0];
+          const stateFips = feat.properties.state_fips;
+          const stateAbbr = STATE_FIPS[stateFips];
+          if (stateAbbr) {
+            onStateClick?.(stateAbbr);
+          }
+        }
+      });
+
+      // Hover handlers — show state tooltip in national view, county tooltip in state view
+      map.on('mousemove', 'county-dots-layer', (e) => {
+        map.getCanvas().style.cursor = 'pointer';
+        if (e.features?.length > 0) {
+          const feat = e.features[0];
+          if (selectedStateRef.current) {
+            onCountyHover?.(e, feat.properties.fips, feat.properties.name);
+          } else {
+            const stateFips = feat.properties.state_fips;
+            const stateAbbr = STATE_FIPS[stateFips];
+            map.setFilter('states-hover', ['==', ['id'], Number(stateFips)]);
+            onStateHover?.(e, stateAbbr);
+          }
+        }
+      });
+
+      map.on('mouseleave', 'county-dots-layer', () => {
+        map.getCanvas().style.cursor = '';
+        if (selectedStateRef.current) {
+          onCountyHover?.(null);
+        } else {
+          map.setFilter('states-hover', ['==', ['id'], '']);
+          onStateHover?.(null);
+        }
+      });
+    }
+  }, [mapLoaded, dotsData, onStateClick, onStateHover, onCountyHover]);
+
+  // Update dot circle-radius and circle-color when year changes
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mapLoaded || !dotsData || !year) return;
+    if (!map.getLayer('county-dots-layer')) return;
+
+    const totalProp = `y${year}_total`;
+    const marginProp = `y${year}_margin`;
+
+    // Main dots radius
+    map.setPaintProperty('county-dots-layer', 'circle-radius', [
+      'interpolate', ['linear'], ['zoom'],
+      3, ['max', 1.5, ['*', ['^', ['coalesce', ['get', totalProp], 0], 0.5], 0.007]],
+      8, ['max', 3, ['*', ['^', ['coalesce', ['get', totalProp], 0], 0.5], 0.03]],
+    ]);
+
+    // Main dots color
+    const colorExpr = [
+      'step', ['coalesce', ['get', marginProp], 0],
+      '#b02018',     // Strong R (margin < -15)
+      -15, '#cc3a3a', // Lean R
+      -5, '#8856a7',  // Toss-up
+      5, '#5e78b8',   // Lean D
+      15, '#1a4a8a',  // Strong D
+    ];
+    map.setPaintProperty('county-dots-layer', 'circle-color', colorExpr);
+
+    // Glow radius (1.8x main dots)
+    if (map.getLayer('county-dots-glow')) {
+      map.setPaintProperty('county-dots-glow', 'circle-radius', [
+        'interpolate', ['linear'], ['zoom'],
+        3, ['max', 2.7, ['*', ['^', ['coalesce', ['get', totalProp], 0], 0.5], 0.0126]],
+        8, ['max', 5.4, ['*', ['^', ['coalesce', ['get', totalProp], 0], 0.5], 0.054]],
+      ]);
+
+      // Glow color (same as main dots)
+      map.setPaintProperty('county-dots-glow', 'circle-color', colorExpr);
+    }
+  }, [mapLoaded, dotsData, year]);
+
+  // Filter dots to selected state or show all
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mapLoaded || !dotsData) return;
+    if (!map.getLayer('county-dots-layer')) return;
+
+    if (selectedState) {
+      const fips = STATE_TO_FIPS[selectedState];
+      const filter = ['==', ['get', 'state_fips'], fips];
+      map.setFilter('county-dots-layer', filter);
+      if (map.getLayer('county-dots-glow')) {
+        map.setFilter('county-dots-glow', filter);
+      }
+    } else {
+      map.setFilter('county-dots-layer', null);
+      if (map.getLayer('county-dots-glow')) {
+        map.setFilter('county-dots-glow', null);
+      }
+    }
+  }, [mapLoaded, selectedState, dotsData]);
 
   // Update state colors when results or year changes
   useEffect(() => {
@@ -316,26 +567,15 @@ export default function MapView({
     // Adjust state layer when zoomed into a state
     if (map.getLayer('states-fill')) {
       if (selectedState) {
-        map.setPaintProperty('states-fill', 'fill-color', '#E9E9E9');
-        map.setPaintProperty('states-fill', 'fill-opacity', 1);
         map.setPaintProperty('states-border', 'line-width', 0.5);
-        map.setPaintProperty('states-border', 'line-color', '#bbb');
+        // White overlay + border on selected state
+        const stateFipsNum = Number(STATE_TO_FIPS[selectedState]);
+        map.setFilter('state-highlight-fill', ['==', ['id'], stateFipsNum]);
+        map.setFilter('state-highlight-border', ['==', ['id'], stateFipsNum]);
       } else {
-        // Restore election colors
-        const yearData = results?.[year];
-        if (yearData) {
-          const colorExpr = ['match', ['to-string', ['id']]];
-          Object.entries(STATE_FIPS).forEach(([fips, abbr]) => {
-            const stateResult = yearData.states?.[abbr];
-            const color = getResultColor(stateResult);
-            colorExpr.push(String(Number(fips)), color);
-          });
-          colorExpr.push('#555');
-          map.setPaintProperty('states-fill', 'fill-color', colorExpr);
-        }
-        map.setPaintProperty('states-fill', 'fill-opacity', 0.9);
         map.setPaintProperty('states-border', 'line-width', 0.8);
-        map.setPaintProperty('states-border', 'line-color', '#888');
+        map.setFilter('state-highlight-fill', ['==', ['id'], '']);
+        map.setFilter('state-highlight-border', ['==', ['id'], '']);
       }
     }
   }, [mapLoaded, selectedState, results, year]);
