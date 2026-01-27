@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "generate-data": "node scripts/generate-topojson.js && node scripts/generate-presidential.js && node scripts/generate-county-dots.js"
+    "generate-data": "node scripts/generate-topojson.js && node scripts/generate-real-data.js && node scripts/generate-county-dots.js"
   },
   "dependencies": {
     "@esri/maplibre-arcgis": "^1.1.0",
