@@ -77,13 +77,7 @@ export default function MapView({
             layers.forEach((l) => {
               if (l.type === 'symbol') {
                 try {
-                  map.setPaintProperty(l.id, 'text-opacity', 0.6);
-                  map.setLayoutProperty(l.id, 'text-size', [
-                    'interpolate', ['linear'], ['zoom'],
-                    3, 8,
-                    6, 9,
-                    10, 11,
-                  ]);
+                  map.setPaintProperty(l.id, 'text-opacity', 0.8);
                 } catch (_) {
                   // Some layers may not support these properties
                 }
@@ -137,7 +131,7 @@ export default function MapView({
         source: 'states',
         paint: {
           'fill-color': '#555',
-          'fill-opacity': 0.35,
+          'fill-opacity': 0.22,
         },
       }, beforeLabel);
 
@@ -380,8 +374,8 @@ export default function MapView({
         paint: {
           'circle-radius': 3,
           'circle-color': '#888',
-          'circle-opacity': 0.4,
-          'circle-blur': 1,
+          'circle-opacity': 0.55,
+          'circle-blur': 1.5,
           'circle-stroke-width': 0,
         },
       }, beforeLayer);
@@ -394,9 +388,9 @@ export default function MapView({
         paint: {
           'circle-radius': 3,
           'circle-color': '#888',
-          'circle-opacity': 0.85,
-          'circle-stroke-width': 0.5,
-          'circle-stroke-color': 'rgba(0,0,0,0.6)',
+          'circle-opacity': 0.95,
+          'circle-stroke-width': 0.3,
+          'circle-stroke-color': 'rgba(255,255,255,0.15)',
         },
       }, beforeLayer);
 
@@ -456,23 +450,23 @@ export default function MapView({
       8, ['max', 3, ['*', ['^', ['coalesce', ['get', totalProp], 0], 0.5], 0.03]],
     ]);
 
-    // Main dots color
+    // Main dots color — brighter, more saturated for glow effect
     const colorExpr = [
       'step', ['coalesce', ['get', marginProp], 0],
-      '#b02018',     // Strong R (margin < -15)
-      -15, '#cc3a3a', // Lean R
-      -5, '#8856a7',  // Toss-up
-      5, '#5e78b8',   // Lean D
-      15, '#1a4a8a',  // Strong D
+      '#e03020',     // Strong R (margin < -15)
+      -15, '#e05548', // Lean R
+      -5, '#c8c0d0',  // Toss-up
+      5, '#6090e0',   // Lean D
+      15, '#2060cc',  // Strong D
     ];
     map.setPaintProperty('county-dots-layer', 'circle-color', colorExpr);
 
-    // Glow radius (1.8x main dots)
+    // Glow radius (2.5x main dots)
     if (map.getLayer('county-dots-glow')) {
       map.setPaintProperty('county-dots-glow', 'circle-radius', [
         'interpolate', ['linear'], ['zoom'],
-        3, ['max', 2.7, ['*', ['^', ['coalesce', ['get', totalProp], 0], 0.5], 0.0126]],
-        8, ['max', 5.4, ['*', ['^', ['coalesce', ['get', totalProp], 0], 0.5], 0.054]],
+        3, ['max', 3.75, ['*', ['^', ['coalesce', ['get', totalProp], 0], 0.5], 0.0175]],
+        8, ['max', 7.5, ['*', ['^', ['coalesce', ['get', totalProp], 0], 0.5], 0.075]],
       ]);
 
       // Glow color (same as main dots)
@@ -538,7 +532,7 @@ export default function MapView({
 
     if (map.getLayer('counties-fill')) {
       map.setPaintProperty('counties-fill', 'fill-color', colorExpr);
-      map.setPaintProperty('counties-fill', 'fill-opacity', 0.2);
+      map.setPaintProperty('counties-fill', 'fill-opacity', 0.4);
     }
   }, [mapLoaded, selectedState, dotsData, year]);
 
