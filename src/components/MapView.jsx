@@ -73,6 +73,23 @@ export default function MapView({
             const firstLabel = layers.find((l) => l.type === 'symbol');
             basemapLabelLayerRef.current = firstLabel?.id || null;
 
+            // Tone down basemap labels — smaller text, lower opacity
+            layers.forEach((l) => {
+              if (l.type === 'symbol') {
+                try {
+                  map.setPaintProperty(l.id, 'text-opacity', 0.6);
+                  map.setLayoutProperty(l.id, 'text-size', [
+                    'interpolate', ['linear'], ['zoom'],
+                    3, 8,
+                    6, 9,
+                    10, 11,
+                  ]);
+                } catch (_) {
+                  // Some layers may not support these properties
+                }
+              }
+            });
+
             setMapLoaded(true);
             onMapReady?.();
           });
@@ -538,7 +555,10 @@ export default function MapView({
     if (map.getLayer('counties-fill')) {
       map.setLayoutProperty('counties-fill', 'visibility', visibility);
       map.setLayoutProperty('counties-border', 'visibility', visibility);
-      map.setLayoutProperty('counties-labels', 'visibility', visibility);
+
+      // Keep county name labels hidden — they overwhelm the visualization
+      map.setLayoutProperty('counties-labels', 'visibility', 'none');
+      map.setLayoutProperty('counties-labels-bg', 'visibility', 'none');
 
       if (selectedState) {
         const fips = STATE_TO_FIPS[selectedState];
@@ -549,18 +569,8 @@ export default function MapView({
           ['>=', ['id'], minId],
           ['<=', ['id'], maxId],
         ];
-        const bgFilter = [
-          'any',
-          ['<', ['id'], minId],
-          ['>', ['id'], maxId],
-        ];
         map.setFilter('counties-fill', stateFilter);
         map.setFilter('counties-border', stateFilter);
-        map.setFilter('counties-labels', stateFilter);
-        map.setFilter('counties-labels-bg', bgFilter);
-        map.setLayoutProperty('counties-labels-bg', 'visibility', 'visible');
-      } else {
-        map.setLayoutProperty('counties-labels-bg', 'visibility', 'none');
       }
     }
 
