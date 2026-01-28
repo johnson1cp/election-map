@@ -351,6 +351,10 @@ export default function MapView({
       if (map.getLayer('county-dots-layer')) {
         map.moveLayer('county-dots-layer', 'counties-labels');
       }
+      // Ensure state highlight border renders above county layers
+      if (map.getLayer('state-highlight-border')) {
+        map.moveLayer('state-highlight-border', 'counties-labels');
+      }
     }
   }, [mapLoaded, countiesGeo, onCountyHover]);
 
