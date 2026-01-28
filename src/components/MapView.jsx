@@ -538,7 +538,7 @@ export default function MapView({
       map.setPaintProperty('counties-fill', 'fill-color', colorExpr);
       map.setPaintProperty('counties-fill', 'fill-opacity', 0.4);
     }
-  }, [mapLoaded, selectedState, dotsData, year]);
+  }, [mapLoaded, selectedState, dotsData, year, countiesGeo]);
 
   // Show/hide county layer based on selection
   useEffect(() => {
@@ -575,7 +575,7 @@ export default function MapView({
         map.setFilter('state-highlight-border', ['==', ['id'], '']);
       }
     }
-  }, [mapLoaded, selectedState, results, year]);
+  }, [mapLoaded, selectedState, results, year, countiesGeo]);
 
   // Fly to state or reset
   useEffect(() => {
