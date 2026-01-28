@@ -1,4 +1,4 @@
-import { STATE_NAMES } from '../utils/constants';
+import { STATE_NAMES, getElectoralVotes } from '../utils/constants';
 
 export default function InfoPanel({ year, selectedState, results, stateData, onBack }) {
   if (!results || !year) return null;
@@ -11,29 +11,51 @@ export default function InfoPanel({ year, selectedState, results, stateData, onB
     const state = yearData.states[selectedState];
     const countyData = stateData?.[selectedState]?.[year]?.counties;
     const countyCount = countyData ? Object.keys(countyData).length : 0;
+    const ev = getElectoralVotes(selectedState, year);
+    const totalVotes = (state.dem_votes || 0) + (state.rep_votes || 0);
+
+    // Build candidates array sorted by winner first
+    const candidates = [
+      { party: 'REP', name: state.rep_candidate, votes: state.rep_votes, pct: state.rep_pct, isWinner: state.winner === 'REP' },
+      { party: 'DEM', name: state.dem_candidate, votes: state.dem_votes, pct: state.dem_pct, isWinner: state.winner === 'DEM' },
+    ].sort((a, b) => b.isWinner - a.isWinner);
 
     return (
       <div className="info-panel">
         <button className="back-btn" onClick={onBack}>← Back to National</button>
-        <h2>{STATE_NAMES[selectedState] || selectedState}</h2>
-        <h3>{year} Presidential</h3>
-        <div className="candidates">
-          <div className={`candidate ${state.winner === 'DEM' ? 'winner' : ''}`}>
-            <span className="party dem">D</span>
-            <span className="name">{state.dem_candidate}</span>
-            <span className="pct">{state.dem_pct?.toFixed(1)}%</span>
-            <span className="votes">{state.dem_votes?.toLocaleString()}</span>
+        <div className="state-header">
+          <h2>{STATE_NAMES[selectedState] || selectedState}, Pres.</h2>
+          <span className={`held-badge ${state.winner === 'DEM' ? 'dem' : 'rep'}`}>
+            {state.winner === 'DEM' ? 'DEM' : 'GOP'} held
+          </span>
+        </div>
+        <div className="ev-subheader">{ev} electoral votes</div>
+
+        <div className="results-table">
+          <div className="table-header">
+            <span className="col-check"></span>
+            <span className="col-name"></span>
+            <span className="col-votes">Votes</span>
+            <span className="col-pct">Pct.</span>
           </div>
-          <div className={`candidate ${state.winner === 'REP' ? 'winner' : ''}`}>
-            <span className="party rep">R</span>
-            <span className="name">{state.rep_candidate}</span>
-            <span className="pct">{state.rep_pct?.toFixed(1)}%</span>
-            <span className="votes">{state.rep_votes?.toLocaleString()}</span>
+          {candidates.map((c) => (
+            <div key={c.party} className={`table-row ${c.isWinner ? 'winner ' + c.party.toLowerCase() : ''}`}>
+              <span className="col-check">{c.isWinner ? '✓' : '○'}</span>
+              <span className="col-name">
+                {c.name} <span className="party-label">({c.party === 'DEM' ? 'D' : 'R'})</span>
+              </span>
+              <span className="col-votes">{c.votes?.toLocaleString()}</span>
+              <span className="col-pct">{c.pct?.toFixed(1)}</span>
+            </div>
+          ))}
+          <div className="table-row total-row">
+            <span className="col-check"></span>
+            <span className="col-name">Total</span>
+            <span className="col-votes">{totalVotes.toLocaleString()}</span>
+            <span className="col-pct"></span>
           </div>
         </div>
-        <div className="margin-display">
-          Margin: <strong>{state.winner === 'DEM' ? 'D' : 'R'}+{Math.abs(state.margin)?.toFixed(1)}%</strong>
-        </div>
+
         {countyCount > 0 && (
           <div className="county-count">{countyCount} counties shown</div>
         )}
