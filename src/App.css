@@ -254,6 +254,16 @@ body {
   margin-bottom: 16px;
 }
 
+.ev-subheader .rep-text {
+  color: var(--rep-color);
+  font-weight: 600;
+}
+
+.ev-subheader .dem-text {
+  color: var(--dem-color);
+  font-weight: 600;
+}
+
 .back-btn {
   padding: 6px 12px;
   margin-bottom: 12px;
