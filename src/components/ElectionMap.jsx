@@ -14,6 +14,7 @@ export default function ElectionMap() {
   const [statesGeo, setStatesGeo] = useState(null);
   const [countiesGeo, setCountiesGeo] = useState(null);
   const [selectedState, setSelectedState] = useState(null);
+  const [selectedCounty, setSelectedCounty] = useState(null);
   const [tooltip, setTooltip] = useState(null);
   const [dotsData, setDotsData] = useState(null);
 
@@ -37,6 +38,7 @@ export default function ElectionMap() {
 
   const handleStateClick = useCallback((stateAbbr) => {
     setSelectedState(stateAbbr);
+    setSelectedCounty(null); // Clear county selection when changing state
     loadStateData(stateAbbr);
 
     // Load counties geo if not already loaded
@@ -50,6 +52,19 @@ export default function ElectionMap() {
 
   const handleBack = useCallback(() => {
     setSelectedState(null);
+    setSelectedCounty(null);
+  }, []);
+
+  const handleCountyClick = useCallback((fips, countyName) => {
+    if (!fips) {
+      setSelectedCounty(null);
+      return;
+    }
+    setSelectedCounty({ fips, name: countyName });
+  }, []);
+
+  const handleClearCounty = useCallback(() => {
+    setSelectedCounty(null);
   }, []);
 
   const handleStateHover = useCallback((e, stateAbbr) => {
@@ -109,9 +124,11 @@ export default function ElectionMap() {
             stateData={stateData[selectedState]}
             year={year}
             selectedState={selectedState}
+            selectedCounty={selectedCounty}
             onStateClick={handleStateClick}
             onStateHover={handleStateHover}
             onCountyHover={handleCountyHover}
+            onCountyClick={handleCountyClick}
           />
           <MapLegend />
         </div>
@@ -119,9 +136,11 @@ export default function ElectionMap() {
         <InfoPanel
           year={year}
           selectedState={selectedState}
+          selectedCounty={selectedCounty}
           results={nationalData}
           stateData={stateData}
           onBack={handleBack}
+          onClearCounty={handleClearCounty}
         />
       </div>
 

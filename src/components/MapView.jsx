@@ -29,9 +29,11 @@ export default function MapView({
   stateData,
   year,
   selectedState,
+  selectedCounty,
   onStateClick,
   onStateHover,
   onCountyHover,
+  onCountyClick,
   onMapReady,
 }) {
   const containerRef = useRef(null);
@@ -40,6 +42,8 @@ export default function MapView({
   const [mapLoaded, setMapLoaded] = useState(false);
   const selectedStateRef = useRef(selectedState);
   selectedStateRef.current = selectedState;
+  const selectedCountyRef = useRef(selectedCounty);
+  selectedCountyRef.current = selectedCounty;
 
   // Initialize map
   useEffect(() => {
@@ -280,6 +284,18 @@ export default function MapView({
         filter: ['==', ['id'], ''],
       }, beforeLabel);
 
+      // Selected county highlight — thicker white border
+      map.addLayer({
+        id: 'counties-selected-border',
+        type: 'line',
+        source: 'counties',
+        paint: {
+          'line-color': '#ffffff',
+          'line-width': 2.5,
+        },
+        filter: ['==', ['id'], ''],
+      }, beforeLabel);
+
       // Labels for selected state (white on colored fills)
       map.addLayer({
         id: 'counties-labels',
@@ -342,6 +358,26 @@ export default function MapView({
         map.setFilter('counties-hover-fill', ['==', ['id'], '']);
         map.setFilter('counties-hover-border', ['==', ['id'], '']);
         onCountyHover?.(null);
+      });
+
+      // County click — select county for detail panel (only if in current state)
+      map.on('click', 'counties-fill', (e) => {
+        if (e.features?.length > 0) {
+          const feat = e.features[0];
+          const fips = String(feat.id).padStart(5, '0');
+          const stateFips = fips.substring(0, 2);
+          const stateAbbr = STATE_FIPS[stateFips];
+          const name = feat.properties?.name || null;
+
+          // If clicking a county in a different state, navigate to that state
+          if (stateAbbr && stateAbbr !== selectedStateRef.current) {
+            onStateClick?.(stateAbbr);
+          } else {
+            // Same state — select the county
+            onCountyClick?.(fips, name);
+          }
+          e.stopPropagation?.();
+        }
       });
 
       // Re-order dots layers above county fills if they were added earlier
@@ -580,6 +616,21 @@ export default function MapView({
       }
     }
   }, [mapLoaded, selectedState, results, year, countiesGeo]);
+
+  // Update selected county highlight
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mapLoaded) return;
+
+    if (map.getLayer('counties-selected-border')) {
+      if (selectedCounty?.fips) {
+        const countyId = Number(selectedCounty.fips);
+        map.setFilter('counties-selected-border', ['==', ['id'], countyId]);
+      } else {
+        map.setFilter('counties-selected-border', ['==', ['id'], '']);
+      }
+    }
+  }, [mapLoaded, selectedCounty]);
 
   // Fly to state or reset
   useEffect(() => {

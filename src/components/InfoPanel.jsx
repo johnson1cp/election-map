@@ -1,6 +1,6 @@
 import { STATE_NAMES, getElectoralVotes } from '../utils/constants';
 
-export default function InfoPanel({ year, selectedState, results, stateData, onBack }) {
+export default function InfoPanel({ year, selectedState, selectedCounty, results, stateData, onBack, onClearCounty }) {
   if (!results || !year) return null;
 
   const yearData = results[year];
@@ -19,6 +19,19 @@ export default function InfoPanel({ year, selectedState, results, stateData, onB
       { party: 'REP', name: state.rep_candidate, votes: state.rep_votes, pct: state.rep_pct, isWinner: state.winner === 'REP' },
       { party: 'DEM', name: state.dem_candidate, votes: state.dem_votes, pct: state.dem_pct, isWinner: state.winner === 'DEM' },
     ].sort((a, b) => b.isWinner - a.isWinner);
+
+    // County data if selected
+    const countyResult = selectedCounty?.fips && countyData?.[selectedCounty.fips];
+    let countyCandidates = null;
+    let countyTotalVotes = 0;
+    if (countyResult) {
+      countyTotalVotes = (countyResult.dem_votes || 0) + (countyResult.rep_votes || 0);
+      const countyWinner = countyResult.dem_pct > countyResult.rep_pct ? 'DEM' : 'REP';
+      countyCandidates = [
+        { party: 'REP', votes: countyResult.rep_votes, pct: countyResult.rep_pct, isWinner: countyWinner === 'REP' },
+        { party: 'DEM', votes: countyResult.dem_votes, pct: countyResult.dem_pct, isWinner: countyWinner === 'DEM' },
+      ].sort((a, b) => b.isWinner - a.isWinner);
+    }
 
     return (
       <div className="info-panel">
@@ -56,8 +69,41 @@ export default function InfoPanel({ year, selectedState, results, stateData, onB
           </div>
         </div>
 
-        {countyCount > 0 && (
-          <div className="county-count">{countyCount} counties shown</div>
+        {countyCount > 0 && !selectedCounty && (
+          <div className="county-count">{countyCount} counties • click for detail</div>
+        )}
+
+        {countyCandidates && (
+          <div className="county-detail">
+            <div className="county-header">
+              <h3>{selectedCounty.name} County</h3>
+              <button className="clear-county-btn" onClick={onClearCounty}>×</button>
+            </div>
+            <div className="results-table">
+              <div className="table-header">
+                <span className="col-check"></span>
+                <span className="col-name"></span>
+                <span className="col-votes">Votes</span>
+                <span className="col-pct">Pct.</span>
+              </div>
+              {countyCandidates.map((c) => (
+                <div key={c.party} className={`table-row ${c.isWinner ? 'winner ' + c.party.toLowerCase() : ''}`}>
+                  <span className="col-check">{c.isWinner ? '✓' : '○'}</span>
+                  <span className="col-name">
+                    <span className="party-label">({c.party === 'DEM' ? 'D' : 'R'})</span>
+                  </span>
+                  <span className="col-votes">{c.votes?.toLocaleString()}</span>
+                  <span className="col-pct">{c.pct?.toFixed(1)}</span>
+                </div>
+              ))}
+              <div className="table-row total-row">
+                <span className="col-check"></span>
+                <span className="col-name">Total</span>
+                <span className="col-votes">{countyTotalVotes.toLocaleString()}</span>
+                <span className="col-pct"></span>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     );

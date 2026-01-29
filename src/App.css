@@ -425,6 +425,40 @@ body {
   margin-top: 12px;
 }
 
+/* County detail section */
+.county-detail {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.county-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.county-header h3 {
+  font-size: 0.95rem;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.clear-county-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.clear-county-btn:hover {
+  color: var(--text-primary);
+}
+
 .instruction {
   font-size: 0.8rem;
   color: var(--text-muted);
