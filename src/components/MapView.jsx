@@ -31,6 +31,7 @@ const US_BOUNDS = [[-130, 24], [-65, 50]];
 export default function MapView({
   statesGeo,
   countiesGeo,
+  districtsGeo,
   dotsData,
   results,
   stateData,
@@ -38,12 +39,16 @@ export default function MapView({
   raceType,
   selectedState,
   selectedCounty,
+  selectedDistrict,
   onStateClick,
   onStateHover,
   onCountyHover,
   onCountyClick,
+  onDistrictClick,
+  onDistrictHover,
   onMapReady,
 }) {
+  const isHouse = raceType === RACE_TYPES.HOUSE;
   const containerRef = useRef(null);
   const mapRef = useRef(null);
   const basemapLabelLayerRef = useRef(null);
@@ -52,6 +57,14 @@ export default function MapView({
   selectedStateRef.current = selectedState;
   const selectedCountyRef = useRef(selectedCounty);
   selectedCountyRef.current = selectedCounty;
+
+  // Refs for callbacks so click handlers always use current versions
+  const onStateClickRef = useRef(onStateClick);
+  onStateClickRef.current = onStateClick;
+  const onDistrictClickRef = useRef(onDistrictClick);
+  onDistrictClickRef.current = onDistrictClick;
+  const onDistrictHoverRef = useRef(onDistrictHover);
+  onDistrictHoverRef.current = onDistrictHover;
 
   // Initialize map
   useEffect(() => {
@@ -203,7 +216,7 @@ export default function MapView({
           const fips = String(feat.id).padStart(2, '0');
           const stateAbbr = STATE_FIPS[fips];
           if (stateAbbr) {
-            onStateClick?.(stateAbbr, feat);
+            onStateClickRef.current?.(stateAbbr, feat);
           }
         }
       });
@@ -401,6 +414,102 @@ export default function MapView({
       }
     }
   }, [mapLoaded, countiesGeo, onCountyHover]);
+
+  // Add congressional districts source and layers when geo data is available
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mapLoaded || !districtsGeo) return;
+
+    const districtsGeojson = feature(districtsGeo, districtsGeo.objects.cb_2023_us_cd118_500k);
+
+    if (map.getSource('districts')) {
+      map.getSource('districts').setData(districtsGeojson);
+    } else {
+      map.addSource('districts', {
+        type: 'geojson',
+        data: districtsGeojson,
+        promoteId: 'id',
+      });
+
+      const beforeLabel = basemapLabelLayerRef.current || undefined;
+
+      map.addLayer({
+        id: 'districts-fill',
+        type: 'fill',
+        source: 'districts',
+        paint: {
+          'fill-color': '#555',
+          'fill-opacity': 0.5,
+        },
+        layout: { visibility: 'none' },
+      }, beforeLabel);
+
+      map.addLayer({
+        id: 'districts-border',
+        type: 'line',
+        source: 'districts',
+        paint: {
+          'line-color': '#000000',
+          'line-width': 0.5,
+          'line-opacity': 0.6,
+        },
+        layout: { visibility: 'none' },
+      }, beforeLabel);
+
+      map.addLayer({
+        id: 'districts-hover',
+        type: 'line',
+        source: 'districts',
+        paint: {
+          'line-color': '#ffffff',
+          'line-width': 2,
+        },
+        filter: ['==', ['get', 'id'], ''],
+        layout: { visibility: 'none' },
+      }, beforeLabel);
+
+      // Selected district highlight
+      map.addLayer({
+        id: 'districts-selected',
+        type: 'line',
+        source: 'districts',
+        paint: {
+          'line-color': '#ffffff',
+          'line-width': 3,
+        },
+        filter: ['==', ['get', 'id'], ''],
+        layout: { visibility: 'none' },
+      }, beforeLabel);
+
+      // District hover handlers
+      map.on('mousemove', 'districts-fill', (e) => {
+        if (e.features?.length > 0) {
+          map.getCanvas().style.cursor = 'pointer';
+          const feat = e.features[0];
+          const districtId = feat.properties.id;
+          map.setFilter('districts-hover', ['==', ['get', 'id'], districtId]);
+          onDistrictHoverRef.current?.(e, districtId, feat.properties);
+        }
+      });
+
+      map.on('mouseleave', 'districts-fill', () => {
+        map.getCanvas().style.cursor = '';
+        map.setFilter('districts-hover', ['==', ['get', 'id'], '']);
+        onDistrictHoverRef.current?.(null);
+      });
+
+      // District click handler
+      map.on('click', 'districts-fill', (e) => {
+        if (e.features?.length > 0) {
+          const feat = e.features[0];
+          const districtId = feat.properties.id;
+          const stateFips = feat.properties.state_fips;
+          const stateAbbr = STATE_FIPS[stateFips];
+          onDistrictClickRef.current?.(districtId, stateAbbr, feat.properties);
+        }
+      });
+    }
+  }, [mapLoaded, districtsGeo]);
 
   // Add county-dots source and layers when dotsData is available
   useEffect(() => {
@@ -651,10 +760,22 @@ export default function MapView({
     });
     colorExpr.push('#555'); // default
 
-    if (map.getLayer('states-fill')) {
+    const isHouseRace = raceType === RACE_TYPES.HOUSE;
+    if (map.getLayer('states-fill') && !isHouseRace) {
       map.setPaintProperty('states-fill', 'fill-color', colorExpr);
       // Higher opacity for Senate/predictions (no dots to show through), lower for presidential (dots visible)
       map.setPaintProperty('states-fill', 'fill-opacity', (isSenate || isPrediction) ? 0.35 : 0.22);
+    }
+
+    // Color districts for House races
+    if (isHouseRace && map.getLayer('districts-fill') && yearData.districts) {
+      const districtColorExpr = ['match', ['get', 'id']];
+      Object.entries(yearData.districts).forEach(([districtId, data]) => {
+        const color = getMarginColor(Math.abs(data.margin), data.winner);
+        districtColorExpr.push(districtId, color);
+      });
+      districtColorExpr.push('#555'); // default
+      map.setPaintProperty('districts-fill', 'fill-color', districtColorExpr);
     }
   }, [mapLoaded, results, year, raceType]);
 
@@ -740,7 +861,9 @@ function getPredictionColor(state) {
     const map = mapRef.current;
     if (!map || !mapLoaded) return;
 
-    const visibility = selectedState ? 'visible' : 'none';
+    const isHouseRace = raceType === RACE_TYPES.HOUSE;
+    const visibility = selectedState && !isHouseRace ? 'visible' : 'none';
+
     if (map.getLayer('counties-fill')) {
       map.setLayoutProperty('counties-fill', 'visibility', visibility);
       map.setLayoutProperty('counties-border', 'visibility', visibility);
@@ -749,16 +872,31 @@ function getPredictionColor(state) {
       map.setLayoutProperty('counties-labels', 'visibility', 'none');
       map.setLayoutProperty('counties-labels-bg', 'visibility', 'none');
 
-      if (selectedState) {
+      if (selectedState && !isHouseRace) {
         // Show all counties (no filter) — selected state is distinguished by highlight border
         map.setFilter('counties-fill', null);
         map.setFilter('counties-border', null);
       }
     }
 
-    // Adjust state layer when zoomed into a state
+    // Show/hide districts layer for House races
+    if (map.getLayer('districts-fill')) {
+      const districtVisibility = isHouseRace ? 'visible' : 'none';
+      map.setLayoutProperty('districts-fill', 'visibility', districtVisibility);
+      map.setLayoutProperty('districts-border', 'visibility', districtVisibility);
+      map.setLayoutProperty('districts-hover', 'visibility', districtVisibility);
+      map.setLayoutProperty('districts-selected', 'visibility', districtVisibility);
+    }
+
+    // Adjust state layer when zoomed into a state or in House view
     if (map.getLayer('states-fill')) {
-      if (selectedState) {
+      if (isHouseRace) {
+        // For House, reduce state fill opacity and show state borders only
+        map.setPaintProperty('states-fill', 'fill-opacity', 0);
+        map.setPaintProperty('states-border', 'line-width', 1);
+        map.setFilter('state-highlight-fill', ['==', ['id'], '']);
+        map.setFilter('state-highlight-border', ['==', ['id'], '']);
+      } else if (selectedState) {
         map.setPaintProperty('states-border', 'line-width', 1.2);
         // White overlay + border on selected state
         const stateFipsNum = Number(STATE_TO_FIPS[selectedState]);
@@ -770,7 +908,7 @@ function getPredictionColor(state) {
         map.setFilter('state-highlight-border', ['==', ['id'], '']);
       }
     }
-  }, [mapLoaded, selectedState, results, year, countiesGeo]);
+  }, [mapLoaded, selectedState, results, year, countiesGeo, raceType]);
 
   // Update selected county highlight
   useEffect(() => {
@@ -786,6 +924,20 @@ function getPredictionColor(state) {
       }
     }
   }, [mapLoaded, selectedCounty]);
+
+  // Update selected district highlight
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mapLoaded) return;
+
+    if (map.getLayer('districts-selected')) {
+      if (selectedDistrict) {
+        map.setFilter('districts-selected', ['==', ['get', 'id'], selectedDistrict]);
+      } else {
+        map.setFilter('districts-selected', ['==', ['get', 'id'], '']);
+      }
+    }
+  }, [mapLoaded, selectedDistrict]);
 
   // Fly to state or reset
   useEffect(() => {

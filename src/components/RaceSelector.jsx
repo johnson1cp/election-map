@@ -9,8 +9,8 @@ const raceLabels = {
 
 export default function RaceSelector({ selected, onChange, isPredictionYear = false }) {
   const isDisabled = (key) => {
-    // Only President and Senate are implemented
-    return key !== RACE_TYPES.PRESIDENT && key !== RACE_TYPES.SENATE;
+    // President, Senate, and House are implemented
+    return key !== RACE_TYPES.PRESIDENT && key !== RACE_TYPES.SENATE && key !== RACE_TYPES.HOUSE;
   };
 
   return (

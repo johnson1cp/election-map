@@ -7,10 +7,10 @@ export const SENATE_YEARS = [
   2026, // Midterm predictions
 ];
 
+export const HOUSE_YEARS = [2024]; // Starting with 2024 only
+
 // Years that are predictions/projections (not historical results)
 export const PREDICTION_YEARS = [2026];
-
-export const HOUSE_YEARS = SENATE_YEARS;
 
 export const GOVERNOR_YEARS = SENATE_YEARS;
 

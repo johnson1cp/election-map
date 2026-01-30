@@ -501,6 +501,143 @@ body {
   font-style: italic;
 }
 
+/* District List for House */
+.district-list-container {
+  max-height: 350px;
+  overflow-y: auto;
+  margin: 12px 0;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+.district-list {
+  margin: 0;
+}
+
+.district-list .table-header {
+  position: sticky;
+  top: 0;
+  background: var(--bg-secondary);
+  z-index: 1;
+}
+
+.district-row {
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.district-row:hover {
+  background: var(--hover-bg);
+}
+
+.district-row.dem {
+  border-left: 3px solid var(--dem-color);
+}
+
+.district-row.rep {
+  border-left: 3px solid var(--rep-color);
+}
+
+.district-row.ind {
+  border-left: 3px solid #9b59b6;
+}
+
+.table-row.winner.ind,
+.table-row.winner.oth,
+.table-row.winner.lib,
+.table-row.winner.grn {
+  background: rgba(155, 89, 182, 0.15);
+  border-left-color: #9b59b6;
+}
+
+.ind-text {
+  color: #9b59b6;
+}
+
+.col-district {
+  width: 40px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.col-winner {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.col-margin {
+  width: 50px;
+  text-align: right;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.dem-text {
+  color: var(--dem-color);
+}
+
+.rep-text {
+  color: var(--rep-color);
+}
+
+.state-vote-summary {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+.margin-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 12px;
+  font-style: italic;
+}
+
+/* District detail section */
+.district-detail {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.district-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.district-detail-header h3 {
+  font-size: 0.95rem;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.district-winner {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.district-winner.dem {
+  color: var(--dem-color);
+}
+
+.district-winner.rep {
+  color: var(--rep-color);
+}
+
+.district-winner.ind {
+  color: #9b59b6;
+}
+
+.district-row.selected {
+  background: rgba(255, 255, 255, 0.1);
+  border-left-width: 4px;
+}
+
 .no-race-message {
   font-size: 1.1rem;
   color: var(--text-secondary);
@@ -559,6 +696,10 @@ body {
   color: #fc8d59;
 }
 
+.tooltip-row.oth {
+  color: #b39ddb;
+}
+
 .tooltip-candidate {
   flex: 1;
 }
@@ -590,6 +731,10 @@ body {
 
 .tooltip-margin.rep {
   color: #fc8d59;
+}
+
+.tooltip-margin.oth {
+  color: #b39ddb;
 }
 
 /* Map Legend */
