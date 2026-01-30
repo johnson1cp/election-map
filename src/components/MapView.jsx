@@ -3,7 +3,14 @@ import maplibregl from 'maplibre-gl';
 import { BasemapStyle } from '@esri/maplibre-arcgis';
 import { feature } from 'topojson-client';
 import { getResultColor, getMarginColor } from '../utils/colorScale';
-import { STATE_FIPS, STATE_NAMES, STATE_TO_FIPS } from '../utils/constants';
+import { STATE_FIPS, STATE_NAMES, STATE_TO_FIPS, RACE_TYPES, PREDICTION_YEARS } from '../utils/constants';
+
+// States that had 2024 Senate races
+const SENATE_STATES_2024 = new Set([
+  'AZ', 'CA', 'CT', 'DE', 'FL', 'HI', 'IN', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO',
+  'MT', 'NE', 'NV', 'NJ', 'NM', 'NY', 'ND', 'OH', 'PA', 'RI', 'TN', 'TX', 'UT', 'VT',
+  'VA', 'WA', 'WV', 'WI', 'WY'
+]);
 
 const MAP_STYLE = {
   version: 8,
@@ -28,6 +35,7 @@ export default function MapView({
   results,
   stateData,
   year,
+  raceType,
   selectedState,
   selectedCounty,
   onStateClick,
@@ -518,18 +526,93 @@ export default function MapView({
     }
   }, [mapLoaded, dotsData, year]);
 
-  // Filter dots to selected state or show all
+  // Update dot colors for Senate mode - use Senate county data instead of presidential
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !mapLoaded || !dotsData) return;
     if (!map.getLayer('county-dots-layer')) return;
 
-    // Show all county dots regardless of selected state
-    map.setFilter('county-dots-layer', null);
-    if (map.getLayer('county-dots-glow')) {
-      map.setFilter('county-dots-glow', null);
+    const isSenate = raceType === RACE_TYPES.SENATE;
+
+    if (isSenate && selectedState && stateData?.[year]?.counties) {
+      // Build color expression from Senate county data
+      const counties = stateData[year].counties;
+      const colorExpr = ['match', ['get', 'fips']];
+
+      for (const [fips, data] of Object.entries(counties)) {
+        const margin = data.margin || (data.dem_pct - data.rep_pct);
+        // Use same step thresholds as presidential dots
+        let color;
+        if (margin > 15) {
+          color = '#2060cc'; // Strong D
+        } else if (margin > 5) {
+          color = '#6090e0'; // Lean D
+        } else if (margin > -5) {
+          color = '#c8c0d0'; // Toss-up
+        } else if (margin > -15) {
+          color = '#e05548'; // Lean R
+        } else {
+          color = '#e03020'; // Strong R
+        }
+        colorExpr.push(fips, color);
+      }
+      colorExpr.push('#888'); // default for counties outside selected state
+
+      map.setPaintProperty('county-dots-layer', 'circle-color', colorExpr);
+      if (map.getLayer('county-dots-glow')) {
+        map.setPaintProperty('county-dots-glow', 'circle-color', colorExpr);
+      }
+    } else if (!isSenate) {
+      // Reset to presidential colors (handled by the year change effect)
+      const marginProp = `y${year}_margin`;
+      const colorExpr = [
+        'step', ['coalesce', ['get', marginProp], 0],
+        '#e03020',     // Strong R (margin < -15)
+        -15, '#e05548', // Lean R
+        -5, '#c8c0d0',  // Toss-up
+        5, '#6090e0',   // Lean D
+        15, '#2060cc',  // Strong D
+      ];
+      map.setPaintProperty('county-dots-layer', 'circle-color', colorExpr);
+      if (map.getLayer('county-dots-glow')) {
+        map.setPaintProperty('county-dots-glow', 'circle-color', colorExpr);
+      }
     }
-  }, [mapLoaded, selectedState, dotsData]);
+  }, [mapLoaded, dotsData, stateData, year, raceType, selectedState]);
+
+  // Filter dots - hide at national level for Senate and for prediction years
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mapLoaded || !dotsData) return;
+    if (!map.getLayer('county-dots-layer')) return;
+
+    const isSenate = raceType === RACE_TYPES.SENATE;
+    const isPrediction = PREDICTION_YEARS.includes(year);
+
+    if (isPrediction) {
+      // Hide dots entirely for prediction years (no county-level data)
+      map.setLayoutProperty('county-dots-layer', 'visibility', 'none');
+      if (map.getLayer('county-dots-glow')) {
+        map.setLayoutProperty('county-dots-glow', 'visibility', 'none');
+      }
+    } else if (isSenate && !selectedState) {
+      // Hide dots at national level for Senate
+      map.setLayoutProperty('county-dots-layer', 'visibility', 'none');
+      if (map.getLayer('county-dots-glow')) {
+        map.setLayoutProperty('county-dots-glow', 'visibility', 'none');
+      }
+    } else {
+      // Show dots for presidential (always) or Senate when drilled into a state
+      map.setLayoutProperty('county-dots-layer', 'visibility', 'visible');
+      if (map.getLayer('county-dots-glow')) {
+        map.setLayoutProperty('county-dots-glow', 'visibility', 'visible');
+      }
+      map.setFilter('county-dots-layer', null);
+      if (map.getLayer('county-dots-glow')) {
+        map.setFilter('county-dots-glow', null);
+      }
+    }
+  }, [mapLoaded, selectedState, dotsData, raceType, year]);
 
   // Update state colors when results or year changes
   useEffect(() => {
@@ -538,36 +621,108 @@ export default function MapView({
 
     const yearData = results[year];
     const colorExpr = ['match', ['to-string', ['id']]];
+    const isSenate = raceType === RACE_TYPES.SENATE;
+    const isPrediction = PREDICTION_YEARS.includes(year);
 
     Object.entries(STATE_FIPS).forEach(([fips, abbr]) => {
-      const stateResult = yearData.states?.[abbr];
-      const color = getResultColor(stateResult);
-      colorExpr.push(String(Number(fips)), color);
+      if (isPrediction) {
+        // Prediction year: color based on probability/classification
+        const stateResult = yearData.states?.[abbr];
+        if (stateResult) {
+          const color = getPredictionColor(stateResult);
+          colorExpr.push(String(Number(fips)), color);
+        } else {
+          // State not in this year's races
+          colorExpr.push(String(Number(fips)), '#4a4a5a');
+        }
+      } else if (isSenate && !SENATE_STATES_2024.has(abbr)) {
+        // For Senate races, show muted gray for states without a race in 2024
+        colorExpr.push(String(Number(fips)), '#4a4a5a');
+      } else if (isSenate) {
+        // Senate: use same color scale as presidential
+        const stateResult = yearData.states?.[abbr];
+        const color = getResultColor(stateResult);
+        colorExpr.push(String(Number(fips)), color);
+      } else {
+        const stateResult = yearData.states?.[abbr];
+        const color = getResultColor(stateResult);
+        colorExpr.push(String(Number(fips)), color);
+      }
     });
     colorExpr.push('#555'); // default
 
     if (map.getLayer('states-fill')) {
       map.setPaintProperty('states-fill', 'fill-color', colorExpr);
+      // Higher opacity for Senate/predictions (no dots to show through), lower for presidential (dots visible)
+      map.setPaintProperty('states-fill', 'fill-opacity', (isSenate || isPrediction) ? 0.35 : 0.22);
     }
-  }, [mapLoaded, results, year]);
+  }, [mapLoaded, results, year, raceType]);
 
-  // Update county colors from dotsData (all counties) when drilling in
+// Get color based on prediction probability/classification
+function getPredictionColor(state) {
+  if (!state) return '#555';
+
+  const classification = state.classification;
+  const probDem = state.prob_dem || 0;
+  const probRep = state.prob_rep || 0;
+
+  // Color based on classification
+  switch (classification) {
+    case 'Safe D':
+      return '#1a4a8a'; // Deep blue
+    case 'Likely D':
+      return '#2a6db8'; // Medium blue
+    case 'Lean D':
+      return '#5e78b8'; // Light blue
+    case 'Toss-up':
+      return '#8856a7'; // Purple
+    case 'Lean R':
+      return '#b85050'; // Light red
+    case 'Likely R':
+      return '#cc3a3a'; // Medium red
+    case 'Safe R':
+      return '#8a1005'; // Deep red
+    default:
+      // Fallback to probability-based coloring
+      if (probDem > 75) return '#2a6db8';
+      if (probDem > 55) return '#5e78b8';
+      if (probDem > 45) return '#8856a7';
+      if (probRep > 55) return '#b85050';
+      if (probRep > 75) return '#cc3a3a';
+      return '#8856a7';
+  }
+}
+
+  // Update county colors from dotsData (presidential) or stateData (Senate) when drilling in
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !mapLoaded || !selectedState || !dotsData) return;
+    if (!map || !mapLoaded || !selectedState) return;
 
     const colorExpr = ['match', ['to-string', ['id']]];
     let hasEntries = false;
+    const isSenate = raceType === RACE_TYPES.SENATE;
 
-    const yearPrefix = `y${year}`;
-    for (const feat of dotsData.features) {
-      const props = feat.properties;
-      const margin = props[`${yearPrefix}_margin`];
-      const winner = props[`${yearPrefix}_winner`];
-      if (margin != null && winner) {
-        const color = getMarginColor(Math.abs(margin), winner);
-        colorExpr.push(String(Number(props.fips)), color);
+    if (isSenate && stateData?.[year]?.counties) {
+      // Use Senate county data from stateData with same color scale as presidential
+      const counties = stateData[year].counties;
+      for (const [fips, data] of Object.entries(counties)) {
+        const margin = Math.abs(data.margin || (data.dem_pct - data.rep_pct));
+        const color = getMarginColor(margin, data.winner);
+        colorExpr.push(String(Number(fips)), color);
         hasEntries = true;
+      }
+    } else if (dotsData) {
+      // Use presidential data from dotsData
+      const yearPrefix = `y${year}`;
+      for (const feat of dotsData.features) {
+        const props = feat.properties;
+        const margin = props[`${yearPrefix}_margin`];
+        const winner = props[`${yearPrefix}_winner`];
+        if (margin != null && winner) {
+          const color = getMarginColor(Math.abs(margin), winner);
+          colorExpr.push(String(Number(props.fips)), color);
+          hasEntries = true;
+        }
       }
     }
 
@@ -578,7 +733,7 @@ export default function MapView({
       map.setPaintProperty('counties-fill', 'fill-color', colorExpr);
       map.setPaintProperty('counties-fill', 'fill-opacity', 0.4);
     }
-  }, [mapLoaded, selectedState, dotsData, year, countiesGeo]);
+  }, [mapLoaded, selectedState, dotsData, stateData, year, countiesGeo, raceType]);
 
   // Show/hide county layer based on selection
   useEffect(() => {

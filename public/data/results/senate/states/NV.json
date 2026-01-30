@@ -1,0 +1,27 @@
+{
+  "2024": {
+    "candidates": {
+      "dem": "Jacky Rosen",
+      "rep": "Sam Brown"
+    },
+    "counties": {
+      "32001": {"margin": -44.02, "winner": "REP", "dem_votes": 3278, "rep_votes": 9179, "total_votes": 13406, "dem_pct": 24.45, "rep_pct": 68.47},
+      "32003": {"margin": 7.25, "winner": "DEM", "dem_votes": 514662, "rep_votes": 441057, "total_votes": 1014837, "dem_pct": 50.71, "rep_pct": 43.46},
+      "32005": {"margin": -29.66, "winner": "REP", "dem_votes": 11675, "rep_votes": 22125, "total_votes": 35255, "dem_pct": 33.11, "rep_pct": 62.77},
+      "32007": {"margin": -51.29, "winner": "REP", "dem_votes": 4439, "rep_votes": 15850, "total_votes": 22245, "dem_pct": 19.96, "rep_pct": 71.25},
+      "32009": {"margin": -59.61, "winner": "REP", "dem_votes": 72, "rep_votes": 345, "total_votes": 458, "dem_pct": 15.72, "rep_pct": 75.33},
+      "32011": {"margin": -70.39, "winner": "REP", "dem_votes": 107, "rep_votes": 825, "total_votes": 1020, "dem_pct": 10.49, "rep_pct": 80.88},
+      "32013": {"margin": -45.96, "winner": "REP", "dem_votes": 1838, "rep_votes": 5500, "total_votes": 7968, "dem_pct": 23.07, "rep_pct": 69.03},
+      "32015": {"margin": -51.13, "winner": "REP", "dem_votes": 538, "rep_votes": 1924, "total_votes": 2711, "dem_pct": 19.84, "rep_pct": 70.97},
+      "32017": {"margin": -65.44, "winner": "REP", "dem_votes": 353, "rep_votes": 1959, "total_votes": 2454, "dem_pct": 14.39, "rep_pct": 79.83},
+      "32019": {"margin": -38.19, "winner": "REP", "dem_votes": 9182, "rep_votes": 21892, "total_votes": 33287, "dem_pct": 27.58, "rep_pct": 65.77},
+      "32021": {"margin": -25.75, "winner": "REP", "dem_votes": 737, "rep_votes": 1326, "total_votes": 2287, "dem_pct": 32.23, "rep_pct": 57.98},
+      "32023": {"margin": -35.66, "winner": "REP", "dem_votes": 7645, "rep_votes": 17220, "total_votes": 26843, "dem_pct": 28.48, "rep_pct": 64.14},
+      "32027": {"margin": -47.97, "winner": "REP", "dem_votes": 519, "rep_votes": 1618, "total_votes": 2291, "dem_pct": 22.65, "rep_pct": 70.62},
+      "32029": {"margin": -34.17, "winner": "REP", "dem_votes": 919, "rep_votes": 1964, "total_votes": 3058, "dem_pct": 30.05, "rep_pct": 64.22},
+      "32031": {"margin": 5.79, "winner": "DEM", "dem_votes": 130841, "rep_votes": 115713, "total_votes": 261475, "dem_pct": 50.04, "rep_pct": 44.25},
+      "32033": {"margin": -53.39, "winner": "REP", "dem_votes": 846, "rep_votes": 3160, "total_votes": 4334, "dem_pct": 19.52, "rep_pct": 72.91},
+      "32510": {"margin": -6.29, "winner": "REP", "dem_votes": 13454, "rep_votes": 15389, "total_votes": 30799, "dem_pct": 43.68, "rep_pct": 49.97}
+    }
+  }
+}

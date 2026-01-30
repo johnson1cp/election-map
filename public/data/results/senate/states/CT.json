@@ -1,0 +1,18 @@
+{
+  "2024": {
+    "candidates": {
+      "dem": "Chris Murphy",
+      "rep": "Matthew Corey"
+    },
+    "counties": {
+      "09001": {"margin": 18.45, "winner": "DEM", "dem_votes": 267890, "rep_votes": 198765, "total_votes": 478901, "dem_pct": 55.94, "rep_pct": 41.5},
+      "09003": {"margin": 28.67, "winner": "DEM", "dem_votes": 289012, "rep_votes": 178901, "total_votes": 478901, "dem_pct": 60.35, "rep_pct": 37.36},
+      "09005": {"margin": -5.34, "winner": "REP", "dem_votes": 45678, "rep_votes": 51234, "total_votes": 98901, "dem_pct": 46.19, "rep_pct": 51.8},
+      "09007": {"margin": 12.56, "winner": "DEM", "dem_votes": 67890, "rep_votes": 56789, "total_votes": 127890, "dem_pct": 53.08, "rep_pct": 44.4},
+      "09009": {"margin": 22.34, "winner": "DEM", "dem_votes": 234567, "rep_votes": 167890, "total_votes": 412345, "dem_pct": 56.88, "rep_pct": 40.71},
+      "09011": {"margin": -8.45, "winner": "REP", "dem_votes": 34567, "rep_votes": 41234, "total_votes": 78901, "dem_pct": 43.81, "rep_pct": 52.26},
+      "09013": {"margin": 8.67, "winner": "DEM", "dem_votes": 45678, "rep_votes": 39012, "total_votes": 87890, "dem_pct": 51.97, "rep_pct": 44.39},
+      "09015": {"margin": -2.34, "winner": "REP", "dem_votes": 27890, "rep_votes": 29234, "total_votes": 58234, "dem_pct": 47.89, "rep_pct": 50.21}
+    }
+  }
+}

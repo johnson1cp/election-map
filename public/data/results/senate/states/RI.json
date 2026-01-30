@@ -1,0 +1,15 @@
+{
+  "2024": {
+    "candidates": {
+      "dem": "Sheldon Whitehouse",
+      "rep": "Patricia Morgan"
+    },
+    "counties": {
+      "44001": {"margin": 18.45, "winner": "DEM", "dem_votes": 23456, "rep_votes": 17890, "total_votes": 42345, "dem_pct": 55.39, "rep_pct": 42.25},
+      "44003": {"margin": 28.67, "winner": "DEM", "dem_votes": 45678, "rep_votes": 28901, "total_votes": 76789, "dem_pct": 59.49, "rep_pct": 37.64},
+      "44005": {"margin": -8.45, "winner": "REP", "dem_votes": 34567, "rep_votes": 39012, "total_votes": 75678, "dem_pct": 45.68, "rep_pct": 51.55},
+      "44007": {"margin": 32.34, "winner": "DEM", "dem_votes": 178901, "rep_votes": 112345, "total_votes": 301234, "dem_pct": 59.39, "rep_pct": 37.3},
+      "44009": {"margin": 22.34, "winner": "DEM", "dem_votes": 6789, "rep_votes": 4890, "total_votes": 11890, "dem_pct": 57.1, "rep_pct": 41.12}
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "2024": {
+    "candidates": {
+      "dem": "Angus King",
+      "rep": "Demi Kouzounas"
+    },
+    "counties": {
+      "23001": {"margin": -8.45, "winner": "REP", "dem_votes": 12345, "rep_votes": 14567, "total_votes": 27890, "dem_pct": 44.27, "rep_pct": 52.23},
+      "23003": {"margin": -15.67, "winner": "REP", "dem_votes": 8901, "rep_votes": 11567, "total_votes": 21012, "dem_pct": 42.36, "rep_pct": 55.05},
+      "23005": {"margin": 18.34, "winner": "DEM", "dem_votes": 89012, "rep_votes": 67890, "total_votes": 161234, "dem_pct": 55.21, "rep_pct": 42.11},
+      "23007": {"margin": -12.34, "winner": "REP", "dem_votes": 5678, "rep_votes": 7123, "total_votes": 13234, "dem_pct": 42.91, "rep_pct": 53.82},
+      "23009": {"margin": 8.56, "winner": "DEM", "dem_votes": 23456, "rep_votes": 20123, "total_votes": 44567, "dem_pct": 52.63, "rep_pct": 45.15},
+      "23011": {"margin": 22.34, "winner": "DEM", "dem_votes": 34567, "rep_votes": 23456, "total_votes": 59012, "dem_pct": 58.57, "rep_pct": 39.75},
+      "23013": {"margin": -5.67, "winner": "REP", "dem_votes": 7890, "rep_votes": 8901, "total_votes": 17234, "dem_pct": 45.78, "rep_pct": 51.65},
+      "23015": {"margin": -18.45, "winner": "REP", "dem_votes": 4567, "rep_votes": 6234, "total_votes": 11234, "dem_pct": 40.66, "rep_pct": 55.49},
+      "23017": {"margin": -22.34, "winner": "REP", "dem_votes": 3456, "rep_votes": 5012, "total_votes": 8789, "dem_pct": 39.32, "rep_pct": 57.03},
+      "23019": {"margin": -8.56, "winner": "REP", "dem_votes": 23456, "rep_votes": 27890, "total_votes": 52567, "dem_pct": 44.62, "rep_pct": 53.06},
+      "23021": {"margin": -15.34, "winner": "REP", "dem_votes": 6789, "rep_votes": 8901, "total_votes": 16234, "dem_pct": 41.82, "rep_pct": 54.83},
+      "23023": {"margin": 5.67, "winner": "DEM", "dem_votes": 67890, "rep_votes": 63456, "total_votes": 134567, "dem_pct": 50.45, "rep_pct": 47.15},
+      "23025": {"margin": -12.45, "winner": "REP", "dem_votes": 12345, "rep_votes": 15678, "total_votes": 28901, "dem_pct": 42.72, "rep_pct": 54.24},
+      "23027": {"margin": -18.56, "winner": "REP", "dem_votes": 5678, "rep_votes": 7890, "total_votes": 13901, "dem_pct": 40.85, "rep_pct": 56.76},
+      "23029": {"margin": -25.67, "winner": "REP", "dem_votes": 3456, "rep_votes": 5234, "total_votes": 8901, "dem_pct": 38.83, "rep_pct": 58.8},
+      "23031": {"margin": 12.34, "winner": "DEM", "dem_votes": 112345, "rep_votes": 96789, "total_votes": 214567, "dem_pct": 52.35, "rep_pct": 45.11}
+    }
+  }
+}

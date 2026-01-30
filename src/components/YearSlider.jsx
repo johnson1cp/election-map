@@ -1,7 +1,8 @@
-import { PRESIDENTIAL_YEARS } from '../utils/constants';
+import { PRESIDENTIAL_YEARS, PREDICTION_YEARS } from '../utils/constants';
 
 export default function YearSlider({ year, onChange, years = PRESIDENTIAL_YEARS }) {
   const idx = years.indexOf(year);
+  const isPredictionYear = (y) => PREDICTION_YEARS.includes(y);
 
   return (
     <div className="year-slider">
@@ -31,10 +32,10 @@ export default function YearSlider({ year, onChange, years = PRESIDENTIAL_YEARS 
         {years.map((y) => (
           <span
             key={y}
-            className={`year-label ${y === year ? 'active' : ''}`}
+            className={`year-label ${y === year ? 'active' : ''} ${isPredictionYear(y) ? 'prediction' : ''}`}
             onClick={() => onChange(y)}
           >
-            {y}
+            {y}{isPredictionYear(y) ? '*' : ''}
           </span>
         ))}
       </div>

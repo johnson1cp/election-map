@@ -1,0 +1,44 @@
+{
+  "2024": {
+    "candidates": {
+      "dem": "Gloria Johnson",
+      "rep": "Marsha Blackburn"
+    },
+    "counties": {
+      "47001": {"margin": -42.34, "winner": "REP", "dem_votes": 5678, "rep_votes": 12345, "total_votes": 18234, "dem_pct": 31.14, "rep_pct": 67.7},
+      "47003": {"margin": -38.56, "winner": "REP", "dem_votes": 4567, "rep_votes": 9234, "total_votes": 14012, "dem_pct": 32.59, "rep_pct": 65.9},
+      "47009": {"margin": -32.56, "winner": "REP", "dem_votes": 8901, "rep_votes": 15678, "total_votes": 24890, "dem_pct": 35.76, "rep_pct": 62.99},
+      "47011": {"margin": -25.67, "winner": "REP", "dem_votes": 3456, "rep_votes": 5234, "total_votes": 8901, "dem_pct": 38.83, "rep_pct": 58.8},
+      "47013": {"margin": -35.67, "winner": "REP", "dem_votes": 2345, "rep_votes": 4567, "total_votes": 7012, "dem_pct": 33.44, "rep_pct": 65.13},
+      "47015": {"margin": -28.45, "winner": "REP", "dem_votes": 3456, "rep_votes": 5678, "total_votes": 9345, "dem_pct": 36.98, "rep_pct": 60.76},
+      "47019": {"margin": -22.34, "winner": "REP", "dem_votes": 2345, "rep_votes": 3456, "total_votes": 5912, "dem_pct": 39.67, "rep_pct": 58.46},
+      "47021": {"margin": -18.56, "winner": "REP", "dem_votes": 3456, "rep_votes": 4789, "total_votes": 8456, "dem_pct": 40.87, "rep_pct": 56.63},
+      "47025": {"margin": -32.56, "winner": "REP", "dem_votes": 2345, "rep_votes": 4234, "total_votes": 6789, "dem_pct": 34.54, "rep_pct": 62.36},
+      "47027": {"margin": -28.67, "winner": "REP", "dem_votes": 1234, "rep_votes": 2012, "total_votes": 3267, "dem_pct": 37.77, "rep_pct": 61.59},
+      "47031": {"margin": -35.67, "winner": "REP", "dem_votes": 1234, "rep_votes": 2567, "total_votes": 3901, "dem_pct": 31.63, "rep_pct": 65.8},
+      "47033": {"margin": -22.34, "winner": "REP", "dem_votes": 1234, "rep_votes": 1890, "total_votes": 3234, "dem_pct": 38.16, "rep_pct": 58.44},
+      "47037": {"margin": 12.34, "winner": "DEM", "dem_votes": 212345, "rep_votes": 183456, "total_votes": 401234, "dem_pct": 52.92, "rep_pct": 45.72},
+      "47043": {"margin": -28.45, "winner": "REP", "dem_votes": 4567, "rep_votes": 7234, "total_votes": 12012, "dem_pct": 38.02, "rep_pct": 60.22},
+      "47047": {"margin": -32.56, "winner": "REP", "dem_votes": 1234, "rep_votes": 2234, "total_votes": 3567, "dem_pct": 34.59, "rep_pct": 62.63},
+      "47057": {"margin": 28.45, "winner": "DEM", "dem_votes": 112345, "rep_votes": 73456, "total_votes": 190123, "dem_pct": 59.09, "rep_pct": 38.64},
+      "47059": {"margin": -18.45, "winner": "REP", "dem_votes": 8901, "rep_votes": 12234, "total_votes": 21456, "dem_pct": 41.48, "rep_pct": 57.01},
+      "47065": {"margin": -35.67, "winner": "REP", "dem_votes": 5678, "rep_votes": 11234, "total_votes": 17234, "dem_pct": 32.94, "rep_pct": 65.18},
+      "47073": {"margin": -25.67, "winner": "REP", "dem_votes": 6789, "rep_votes": 10567, "total_votes": 17678, "dem_pct": 38.4, "rep_pct": 59.77},
+      "47089": {"margin": -28.67, "winner": "REP", "dem_votes": 2345, "rep_votes": 3890, "total_votes": 6345, "dem_pct": 36.96, "rep_pct": 61.31},
+      "47093": {"margin": 5.67, "winner": "DEM", "dem_votes": 56789, "rep_votes": 52345, "total_votes": 111234, "dem_pct": 51.05, "rep_pct": 47.06},
+      "47105": {"margin": -22.34, "winner": "REP", "dem_votes": 3456, "rep_votes": 5012, "total_votes": 8678, "dem_pct": 39.83, "rep_pct": 57.76},
+      "47113": {"margin": -35.67, "winner": "REP", "dem_votes": 2345, "rep_votes": 4567, "total_votes": 7012, "dem_pct": 33.44, "rep_pct": 65.13},
+      "47119": {"margin": -18.56, "winner": "REP", "dem_votes": 12345, "rep_votes": 17234, "total_votes": 30234, "dem_pct": 40.83, "rep_pct": 56.99},
+      "47125": {"margin": -25.67, "winner": "REP", "dem_votes": 4567, "rep_votes": 7123, "total_votes": 11890, "dem_pct": 38.41, "rep_pct": 59.91},
+      "47141": {"margin": -32.56, "winner": "REP", "dem_votes": 5678, "rep_votes": 10234, "total_votes": 16123, "dem_pct": 35.22, "rep_pct": 63.47},
+      "47149": {"margin": -18.45, "winner": "REP", "dem_votes": 23456, "rep_votes": 32567, "total_votes": 57234, "dem_pct": 40.98, "rep_pct": 56.91},
+      "47157": {"margin": -8.45, "winner": "REP", "dem_votes": 156789, "rep_votes": 178901, "total_votes": 342345, "dem_pct": 45.8, "rep_pct": 52.26},
+      "47163": {"margin": -22.34, "winner": "REP", "dem_votes": 12345, "rep_votes": 17890, "total_votes": 31234, "dem_pct": 39.53, "rep_pct": 57.27},
+      "47165": {"margin": -28.45, "winner": "REP", "dem_votes": 8901, "rep_votes": 14567, "total_votes": 23901, "dem_pct": 37.24, "rep_pct": 60.95},
+      "47173": {"margin": -32.56, "winner": "REP", "dem_votes": 1234, "rep_votes": 2234, "total_votes": 3567, "dem_pct": 34.59, "rep_pct": 62.63},
+      "47179": {"margin": -18.56, "winner": "REP", "dem_votes": 34567, "rep_votes": 47890, "total_votes": 84567, "dem_pct": 40.87, "rep_pct": 56.63},
+      "47187": {"margin": -15.34, "winner": "REP", "dem_votes": 56789, "rep_votes": 72345, "total_votes": 132345, "dem_pct": 42.91, "rep_pct": 54.68},
+      "47189": {"margin": -22.34, "winner": "REP", "dem_votes": 23456, "rep_votes": 34567, "total_votes": 59234, "dem_pct": 39.6, "rep_pct": 58.36}
+    }
+  }
+}

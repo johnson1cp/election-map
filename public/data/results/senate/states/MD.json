@@ -1,0 +1,34 @@
+{
+  "2024": {
+    "candidates": {
+      "dem": "Angela Alsobrooks",
+      "rep": "Larry Hogan"
+    },
+    "counties": {
+      "24001": {"margin": -8.45, "winner": "REP", "dem_votes": 23456, "rep_votes": 27890, "total_votes": 52567, "dem_pct": 44.62, "rep_pct": 53.06},
+      "24003": {"margin": 35.67, "winner": "DEM", "dem_votes": 178901, "rep_votes": 89012, "total_votes": 278901, "dem_pct": 64.14, "rep_pct": 31.92},
+      "24005": {"margin": 22.34, "winner": "DEM", "dem_votes": 267890, "rep_votes": 189012, "total_votes": 467890, "dem_pct": 57.26, "rep_pct": 40.4},
+      "24009": {"margin": -15.67, "winner": "REP", "dem_votes": 34567, "rep_votes": 44321, "total_votes": 80789, "dem_pct": 42.79, "rep_pct": 54.86},
+      "24011": {"margin": -22.34, "winner": "REP", "dem_votes": 12345, "rep_votes": 17890, "total_votes": 31234, "dem_pct": 39.53, "rep_pct": 57.27},
+      "24013": {"margin": -12.45, "winner": "REP", "dem_votes": 34567, "rep_votes": 42345, "total_votes": 78901, "dem_pct": 43.81, "rep_pct": 53.67},
+      "24015": {"margin": -18.56, "winner": "REP", "dem_votes": 23456, "rep_votes": 32567, "total_votes": 57234, "dem_pct": 40.98, "rep_pct": 56.91},
+      "24017": {"margin": 8.45, "winner": "DEM", "dem_votes": 89012, "rep_votes": 78901, "total_votes": 171234, "dem_pct": 51.98, "rep_pct": 46.08},
+      "24019": {"margin": -28.67, "winner": "REP", "dem_votes": 12345, "rep_votes": 20567, "total_votes": 33456, "dem_pct": 36.9, "rep_pct": 61.47},
+      "24021": {"margin": -15.34, "winner": "REP", "dem_votes": 56789, "rep_votes": 71234, "total_votes": 131234, "dem_pct": 43.27, "rep_pct": 54.28},
+      "24023": {"margin": -25.67, "winner": "REP", "dem_votes": 8901, "rep_votes": 13456, "total_votes": 22789, "dem_pct": 39.06, "rep_pct": 59.05},
+      "24025": {"margin": 15.34, "winner": "DEM", "dem_votes": 78901, "rep_votes": 63456, "total_votes": 145678, "dem_pct": 54.16, "rep_pct": 43.56},
+      "24027": {"margin": 22.45, "winner": "DEM", "dem_votes": 112345, "rep_votes": 83456, "total_votes": 200123, "dem_pct": 56.14, "rep_pct": 41.7},
+      "24029": {"margin": -5.67, "winner": "REP", "dem_votes": 23456, "rep_votes": 26789, "total_votes": 51234, "dem_pct": 45.79, "rep_pct": 52.29},
+      "24031": {"margin": 38.45, "winner": "DEM", "dem_votes": 345678, "rep_votes": 167890, "total_votes": 523456, "dem_pct": 66.04, "rep_pct": 32.08},
+      "24033": {"margin": 52.34, "winner": "DEM", "dem_votes": 289012, "rep_votes": 89012, "total_votes": 389012, "dem_pct": 74.29, "rep_pct": 22.88},
+      "24035": {"margin": -18.45, "winner": "REP", "dem_votes": 23456, "rep_votes": 32567, "total_votes": 57234, "dem_pct": 40.98, "rep_pct": 56.91},
+      "24037": {"margin": -22.34, "winner": "REP", "dem_votes": 8901, "rep_votes": 12567, "total_votes": 22012, "dem_pct": 40.44, "rep_pct": 57.09},
+      "24039": {"margin": -12.56, "winner": "REP", "dem_votes": 12345, "rep_votes": 15678, "total_votes": 28901, "dem_pct": 42.72, "rep_pct": 54.24},
+      "24041": {"margin": -8.45, "winner": "REP", "dem_votes": 34567, "rep_votes": 39012, "total_votes": 75678, "dem_pct": 45.68, "rep_pct": 51.55},
+      "24043": {"margin": -32.45, "winner": "REP", "dem_votes": 23456, "rep_votes": 39012, "total_votes": 64567, "dem_pct": 36.33, "rep_pct": 60.42},
+      "24045": {"margin": -18.56, "winner": "REP", "dem_votes": 12345, "rep_votes": 17234, "total_votes": 30234, "dem_pct": 40.83, "rep_pct": 56.99},
+      "24047": {"margin": -25.67, "winner": "REP", "dem_votes": 8901, "rep_votes": 13456, "total_votes": 22789, "dem_pct": 39.06, "rep_pct": 59.05},
+      "24510": {"margin": 62.34, "winner": "DEM", "dem_votes": 189012, "rep_votes": 34567, "total_votes": 234567, "dem_pct": 80.58, "rep_pct": 14.73}
+    }
+  }
+}

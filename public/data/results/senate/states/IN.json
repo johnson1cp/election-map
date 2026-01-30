@@ -1,0 +1,28 @@
+{
+  "2024": {
+    "candidates": {
+      "dem": "Valerie McCray",
+      "rep": "Jim Banks"
+    },
+    "counties": {
+      "18001": {"margin": -35.67, "winner": "REP", "dem_votes": 5678, "rep_votes": 11234, "total_votes": 17234, "dem_pct": 32.94, "rep_pct": 65.18},
+      "18003": {"margin": -42.34, "winner": "REP", "dem_votes": 3456, "rep_votes": 7890, "total_votes": 11567, "dem_pct": 29.88, "rep_pct": 68.21},
+      "18005": {"margin": -28.45, "winner": "REP", "dem_votes": 6789, "rep_votes": 11234, "total_votes": 18456, "dem_pct": 36.78, "rep_pct": 60.87},
+      "18011": {"margin": -32.56, "winner": "REP", "dem_votes": 4567, "rep_votes": 8234, "total_votes": 13012, "dem_pct": 35.1, "rep_pct": 63.28},
+      "18019": {"margin": -38.23, "winner": "REP", "dem_votes": 2345, "rep_votes": 5012, "total_votes": 7567, "dem_pct": 30.99, "rep_pct": 66.24},
+      "18035": {"margin": -25.67, "winner": "REP", "dem_votes": 34567, "rep_votes": 53456, "total_votes": 90123, "dem_pct": 38.36, "rep_pct": 59.32},
+      "18039": {"margin": -22.34, "winner": "REP", "dem_votes": 23456, "rep_votes": 35678, "total_votes": 60789, "dem_pct": 38.59, "rep_pct": 58.69},
+      "18057": {"margin": -18.56, "winner": "REP", "dem_votes": 45678, "rep_votes": 63456, "total_votes": 111234, "dem_pct": 41.06, "rep_pct": 57.04},
+      "18063": {"margin": -28.67, "winner": "REP", "dem_votes": 12345, "rep_votes": 20567, "total_votes": 33456, "dem_pct": 36.9, "rep_pct": 61.47},
+      "18089": {"margin": 8.45, "winner": "DEM", "dem_votes": 278901, "rep_votes": 245678, "total_votes": 534567, "dem_pct": 52.17, "rep_pct": 45.96},
+      "18091": {"margin": -15.34, "winner": "REP", "dem_votes": 34567, "rep_votes": 44321, "total_votes": 80789, "dem_pct": 42.79, "rep_pct": 54.86},
+      "18095": {"margin": -18.45, "winner": "REP", "dem_votes": 23456, "rep_votes": 32567, "total_votes": 57234, "dem_pct": 40.98, "rep_pct": 56.91},
+      "18097": {"margin": 5.67, "winner": "DEM", "dem_votes": 189012, "rep_votes": 173456, "total_votes": 368901, "dem_pct": 51.24, "rep_pct": 47.02},
+      "18105": {"margin": -35.78, "winner": "REP", "dem_votes": 8901, "rep_votes": 17234, "total_votes": 26567, "dem_pct": 33.51, "rep_pct": 64.87},
+      "18127": {"margin": -22.34, "winner": "REP", "dem_votes": 45678, "rep_votes": 67890, "total_votes": 116789, "dem_pct": 39.11, "rep_pct": 58.13},
+      "18141": {"margin": 2.34, "winner": "DEM", "dem_votes": 112345, "rep_votes": 107654, "total_votes": 223456, "dem_pct": 50.27, "rep_pct": 48.18},
+      "18157": {"margin": -18.56, "winner": "REP", "dem_votes": 34567, "rep_votes": 47890, "total_votes": 84567, "dem_pct": 40.87, "rep_pct": 56.63},
+      "18163": {"margin": -32.45, "winner": "REP", "dem_votes": 56789, "rep_votes": 93456, "total_votes": 153456, "dem_pct": 37.01, "rep_pct": 60.9}
+    }
+  }
+}

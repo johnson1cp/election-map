@@ -2,10 +2,13 @@ export const PRESIDENTIAL_YEARS = [
   1976, 1980, 1984, 1988, 1992, 1996, 2000, 2004, 2008, 2012, 2016, 2020, 2024
 ];
 
-export const SENATE_YEARS = Array.from(
-  { length: 25 },
-  (_, i) => 1976 + i * 2
-);
+export const SENATE_YEARS = [
+  2008, 2010, 2012, 2014, 2016, 2018, 2020, 2022, 2024,
+  2026, // Midterm predictions
+];
+
+// Years that are predictions/projections (not historical results)
+export const PREDICTION_YEARS = [2026];
 
 export const HOUSE_YEARS = SENATE_YEARS;
 

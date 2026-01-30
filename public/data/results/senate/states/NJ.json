@@ -1,0 +1,31 @@
+{
+  "2024": {
+    "candidates": {
+      "dem": "Andy Kim",
+      "rep": "Curtis Bashaw"
+    },
+    "counties": {
+      "34001": {"margin": 38.45, "winner": "DEM", "dem_votes": 78901, "rep_votes": 39012, "total_votes": 121234, "dem_pct": 65.08, "rep_pct": 32.18},
+      "34003": {"margin": 25.67, "winner": "DEM", "dem_votes": 267890, "rep_votes": 178901, "total_votes": 456789, "dem_pct": 58.64, "rep_pct": 39.17},
+      "34005": {"margin": -8.45, "winner": "REP", "dem_votes": 112345, "rep_votes": 128901, "total_votes": 245678, "dem_pct": 45.73, "rep_pct": 52.47},
+      "34007": {"margin": 52.34, "winner": "DEM", "dem_votes": 56789, "rep_votes": 23456, "total_votes": 82345, "dem_pct": 68.96, "rep_pct": 28.48},
+      "34009": {"margin": -12.34, "winner": "REP", "dem_votes": 23456, "rep_votes": 28901, "total_votes": 53567, "dem_pct": 43.79, "rep_pct": 53.95},
+      "34011": {"margin": 18.56, "winner": "DEM", "dem_votes": 45678, "rep_votes": 34567, "total_votes": 82345, "dem_pct": 55.47, "rep_pct": 41.98},
+      "34013": {"margin": 32.34, "winner": "DEM", "dem_votes": 234567, "rep_votes": 145678, "total_votes": 389012, "dem_pct": 60.29, "rep_pct": 37.44},
+      "34015": {"margin": -5.67, "winner": "REP", "dem_votes": 89012, "rep_votes": 96789, "total_votes": 189012, "dem_pct": 47.09, "rep_pct": 51.21},
+      "34017": {"margin": 28.67, "winner": "DEM", "dem_votes": 178901, "rep_votes": 112345, "total_votes": 298901, "dem_pct": 59.85, "rep_pct": 37.59},
+      "34019": {"margin": 15.34, "winner": "DEM", "dem_votes": 156789, "rep_votes": 128901, "total_votes": 290123, "dem_pct": 54.04, "rep_pct": 44.43},
+      "34021": {"margin": 12.45, "winner": "DEM", "dem_votes": 134567, "rep_votes": 117890, "total_votes": 256789, "dem_pct": 52.4, "rep_pct": 45.91},
+      "34023": {"margin": -2.34, "winner": "REP", "dem_votes": 112345, "rep_votes": 117890, "total_votes": 232345, "dem_pct": 48.36, "rep_pct": 50.74},
+      "34025": {"margin": 22.34, "winner": "DEM", "dem_votes": 178901, "rep_votes": 134567, "total_votes": 321234, "dem_pct": 55.69, "rep_pct": 41.89},
+      "34027": {"margin": 8.45, "winner": "DEM", "dem_votes": 145678, "rep_votes": 131234, "total_votes": 281234, "dem_pct": 51.8, "rep_pct": 46.66},
+      "34029": {"margin": 18.56, "winner": "DEM", "dem_votes": 189012, "rep_votes": 150234, "total_votes": 345678, "dem_pct": 54.68, "rep_pct": 43.46},
+      "34031": {"margin": 42.34, "winner": "DEM", "dem_votes": 67890, "rep_votes": 34567, "total_votes": 104567, "dem_pct": 64.92, "rep_pct": 33.06},
+      "34033": {"margin": -15.34, "winner": "REP", "dem_votes": 34567, "rep_votes": 44321, "total_votes": 80789, "dem_pct": 42.79, "rep_pct": 54.86},
+      "34035": {"margin": 12.34, "winner": "DEM", "dem_votes": 123456, "rep_votes": 107890, "total_votes": 234567, "dem_pct": 52.63, "rep_pct": 45.99},
+      "34037": {"margin": -8.45, "winner": "REP", "dem_votes": 67890, "rep_votes": 76543, "total_votes": 147890, "dem_pct": 45.9, "rep_pct": 51.76},
+      "34039": {"margin": 18.45, "winner": "DEM", "dem_votes": 156789, "rep_votes": 123456, "total_votes": 285678, "dem_pct": 54.88, "rep_pct": 43.22},
+      "34041": {"margin": -18.56, "winner": "REP", "dem_votes": 23456, "rep_votes": 32567, "total_votes": 57234, "dem_pct": 40.98, "rep_pct": 56.91}
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "2024": {
+    "candidates": {
+      "dem": "Elizabeth Warren",
+      "rep": "John Deaton"
+    },
+    "counties": {
+      "25001": {"margin": 18.45, "winner": "DEM", "dem_votes": 34567, "rep_votes": 26789, "total_votes": 63456, "dem_pct": 54.47, "rep_pct": 42.22},
+      "25003": {"margin": -5.67, "winner": "REP", "dem_votes": 12345, "rep_votes": 14234, "total_votes": 27234, "dem_pct": 45.32, "rep_pct": 52.25},
+      "25005": {"margin": 28.34, "winner": "DEM", "dem_votes": 456789, "rep_votes": 278901, "total_votes": 756789, "dem_pct": 60.36, "rep_pct": 36.85},
+      "25007": {"margin": 12.56, "winner": "DEM", "dem_votes": 23456, "rep_votes": 19234, "total_votes": 43890, "dem_pct": 53.44, "rep_pct": 43.83},
+      "25009": {"margin": 38.67, "winner": "DEM", "dem_votes": 378901, "rep_votes": 189012, "total_votes": 589012, "dem_pct": 64.33, "rep_pct": 32.09},
+      "25011": {"margin": -8.45, "winner": "REP", "dem_votes": 34567, "rep_votes": 39234, "total_votes": 76012, "dem_pct": 45.47, "rep_pct": 51.62},
+      "25013": {"margin": 22.34, "winner": "DEM", "dem_votes": 234567, "rep_votes": 167890, "total_votes": 412345, "dem_pct": 56.88, "rep_pct": 40.71},
+      "25015": {"margin": 18.56, "winner": "DEM", "dem_votes": 178901, "rep_votes": 138901, "total_votes": 323456, "dem_pct": 55.31, "rep_pct": 42.94},
+      "25017": {"margin": 35.67, "winner": "DEM", "dem_votes": 289012, "rep_votes": 145678, "total_votes": 445678, "dem_pct": 64.85, "rep_pct": 32.68},
+      "25019": {"margin": 28.45, "winner": "DEM", "dem_votes": 12345, "rep_votes": 7890, "total_votes": 21234, "dem_pct": 58.14, "rep_pct": 37.16},
+      "25021": {"margin": 8.56, "winner": "DEM", "dem_votes": 123456, "rep_votes": 110234, "total_votes": 238901, "dem_pct": 51.67, "rep_pct": 46.14},
+      "25023": {"margin": -2.34, "winner": "REP", "dem_votes": 89012, "rep_votes": 92345, "total_votes": 184567, "dem_pct": 48.23, "rep_pct": 50.03},
+      "25025": {"margin": 48.67, "winner": "DEM", "dem_votes": 289012, "rep_votes": 112345, "total_votes": 412345, "dem_pct": 70.09, "rep_pct": 27.24},
+      "25027": {"margin": 32.34, "winner": "DEM", "dem_votes": 212345, "rep_votes": 123456, "total_votes": 345678, "dem_pct": 61.43, "rep_pct": 35.71}
+    }
+  }
+}

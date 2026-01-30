@@ -1,0 +1,25 @@
+{
+  "2024": {
+    "candidates": {
+      "dem": "Ruben Gallego",
+      "rep": "Kari Lake"
+    },
+    "counties": {
+      "04001": {"margin": 22.34, "winner": "DEM", "dem_votes": 19234, "rep_votes": 12456, "total_votes": 32019, "dem_pct": 60.07, "rep_pct": 38.91},
+      "04003": {"margin": -21.45, "winner": "REP", "dem_votes": 23156, "rep_votes": 35234, "total_votes": 58923, "dem_pct": 39.3, "rep_pct": 59.8},
+      "04005": {"margin": 23.45, "winner": "DEM", "dem_votes": 42567, "rep_votes": 26123, "total_votes": 70067, "dem_pct": 60.75, "rep_pct": 37.28},
+      "04007": {"margin": -35.23, "winner": "REP", "dem_votes": 8945, "rep_votes": 18234, "total_votes": 27648, "dem_pct": 32.35, "rep_pct": 65.95},
+      "04009": {"margin": -45.67, "winner": "REP", "dem_votes": 4012, "rep_votes": 10867, "total_votes": 15183, "dem_pct": 26.42, "rep_pct": 71.57},
+      "04011": {"margin": -38.23, "winner": "REP", "dem_votes": 1023, "rep_votes": 2234, "total_votes": 3308, "dem_pct": 30.92, "rep_pct": 67.54},
+      "04012": {"margin": -42.56, "winner": "REP", "dem_votes": 2189, "rep_votes": 5312, "total_votes": 7624, "dem_pct": 28.71, "rep_pct": 69.68},
+      "04013": {"margin": 0.89, "winner": "DEM", "dem_votes": 1034567, "rep_votes": 1016234, "total_votes": 2053945, "dem_pct": 50.37, "rep_pct": 49.48},
+      "04015": {"margin": -53.45, "winner": "REP", "dem_votes": 25123, "rep_votes": 84234, "total_votes": 110450, "dem_pct": 22.75, "rep_pct": 76.27},
+      "04017": {"margin": -15.34, "winner": "REP", "dem_votes": 21456, "rep_votes": 28934, "total_votes": 50706, "dem_pct": 42.32, "rep_pct": 57.06},
+      "04019": {"margin": 18.23, "winner": "DEM", "dem_votes": 301234, "rep_votes": 207456, "total_votes": 513176, "dem_pct": 58.7, "rep_pct": 40.42},
+      "04021": {"margin": -20.12, "winner": "REP", "dem_votes": 83456, "rep_votes": 124567, "total_votes": 209552, "dem_pct": 39.83, "rep_pct": 59.44},
+      "04023": {"margin": 21.34, "winner": "DEM", "dem_votes": 11567, "rep_votes": 7345, "total_votes": 19121, "dem_pct": 60.49, "rep_pct": 38.41},
+      "04025": {"margin": -31.45, "winner": "REP", "dem_votes": 50234, "rep_votes": 97234, "total_votes": 149402, "dem_pct": 33.62, "rep_pct": 65.08},
+      "04027": {"margin": -18.56, "winner": "REP", "dem_votes": 27567, "rep_votes": 39823, "total_votes": 68195, "dem_pct": 40.42, "rep_pct": 58.39}
+    }
+  }
+}

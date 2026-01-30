@@ -1,0 +1,13 @@
+{
+  "2024": {
+    "candidates": {
+      "dem": "Lisa Blunt Rochester",
+      "rep": "Eric Hansen"
+    },
+    "counties": {
+      "10001": {"margin": -8.45, "winner": "REP", "dem_votes": 34567, "rep_votes": 41234, "total_votes": 78901, "dem_pct": 43.81, "rep_pct": 52.26},
+      "10003": {"margin": 28.67, "winner": "DEM", "dem_votes": 189012, "rep_votes": 112345, "total_votes": 312345, "dem_pct": 60.51, "rep_pct": 35.97},
+      "10005": {"margin": -12.34, "winner": "REP", "dem_votes": 34210, "rep_votes": 41655, "total_votes": 78432, "dem_pct": 43.62, "rep_pct": 53.11}
+    }
+  }
+}

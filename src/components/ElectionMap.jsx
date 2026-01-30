@@ -6,7 +6,7 @@ import MapLegend from './MapLegend';
 import InfoPanel from './InfoPanel';
 import Tooltip from './Tooltip';
 import { useElectionData } from '../hooks/useElectionData';
-import { RACE_TYPES, STATE_NAMES, getElectoralVotes } from '../utils/constants';
+import { RACE_TYPES, STATE_NAMES, getElectoralVotes, PREDICTION_YEARS, PRESIDENTIAL_YEARS, SENATE_YEARS } from '../utils/constants';
 
 export default function ElectionMap() {
   const [year, setYear] = useState(2024);
@@ -35,6 +35,14 @@ export default function ElectionMap() {
       .then(setDotsData)
       .catch(console.error);
   }, []);
+
+  // Auto-switch to Senate when a prediction year is selected
+  const isPredictionYear = PREDICTION_YEARS.includes(year);
+  useEffect(() => {
+    if (isPredictionYear && raceType !== RACE_TYPES.SENATE) {
+      setRaceType(RACE_TYPES.SENATE);
+    }
+  }, [year, isPredictionYear, raceType]);
 
   const handleStateClick = useCallback((stateAbbr) => {
     setSelectedState(stateAbbr);
@@ -66,6 +74,24 @@ export default function ElectionMap() {
   const handleClearCounty = useCallback(() => {
     setSelectedCounty(null);
   }, []);
+
+  const handleBackToResults = useCallback(() => {
+    setYear(2024);
+    setSelectedState(null);
+    setSelectedCounty(null);
+  }, []);
+
+  const handleSwitchToPresident = useCallback(() => {
+    setRaceType(RACE_TYPES.PRESIDENT);
+    // Find closest presidential year
+    const presYears = PRESIDENTIAL_YEARS;
+    const closestYear = presYears.reduce((prev, curr) =>
+      Math.abs(curr - year) < Math.abs(prev - year) ? curr : prev
+    );
+    setYear(closestYear);
+    setSelectedState(null);
+    setSelectedCounty(null);
+  }, [year]);
 
   const handleStateHover = useCallback((e, stateAbbr) => {
     if (!e) {
@@ -111,7 +137,7 @@ export default function ElectionMap() {
   return (
     <div className="election-map-container">
       <div className="map-header">
-        <RaceSelector selected={raceType} onChange={setRaceType} />
+        <RaceSelector selected={raceType} onChange={setRaceType} isPredictionYear={isPredictionYear} />
       </div>
 
       <div className="map-main">
@@ -123,6 +149,7 @@ export default function ElectionMap() {
             results={nationalData}
             stateData={stateData[selectedState]}
             year={year}
+            raceType={raceType}
             selectedState={selectedState}
             selectedCounty={selectedCounty}
             onStateClick={handleStateClick}
@@ -135,16 +162,24 @@ export default function ElectionMap() {
 
         <InfoPanel
           year={year}
+          raceType={raceType}
           selectedState={selectedState}
           selectedCounty={selectedCounty}
           results={nationalData}
           stateData={stateData}
           onBack={handleBack}
           onClearCounty={handleClearCounty}
+          isPredictionYear={isPredictionYear}
+          onBackToResults={handleBackToResults}
+          onSwitchToPresident={handleSwitchToPresident}
         />
       </div>
 
-      <YearSlider year={year} onChange={setYear} />
+      <YearSlider
+        year={year}
+        onChange={setYear}
+        years={raceType === RACE_TYPES.SENATE ? SENATE_YEARS : PRESIDENTIAL_YEARS}
+      />
       <Tooltip data={enrichedTooltip?.data} position={enrichedTooltip?.position} />
     </div>
   );

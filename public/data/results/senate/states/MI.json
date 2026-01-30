@@ -1,0 +1,37 @@
+{
+  "2024": {
+    "candidates": {
+      "dem": "Elissa Slotkin",
+      "rep": "Mike Rogers"
+    },
+    "counties": {
+      "26001": {"margin": -18.45, "winner": "REP", "dem_votes": 3456, "rep_votes": 4789, "total_votes": 8456, "dem_pct": 40.87, "rep_pct": 56.63},
+      "26005": {"margin": -22.34, "winner": "REP", "dem_votes": 2345, "rep_votes": 3567, "total_votes": 6123, "dem_pct": 38.3, "rep_pct": 58.26},
+      "26015": {"margin": -15.67, "winner": "REP", "dem_votes": 8901, "rep_votes": 11567, "total_votes": 21012, "dem_pct": 42.36, "rep_pct": 55.05},
+      "26017": {"margin": -28.45, "winner": "REP", "dem_votes": 5678, "rep_votes": 9234, "total_votes": 15234, "dem_pct": 37.27, "rep_pct": 60.62},
+      "26021": {"margin": -32.56, "winner": "REP", "dem_votes": 4567, "rep_votes": 8234, "total_votes": 13012, "dem_pct": 35.1, "rep_pct": 63.28},
+      "26025": {"margin": -25.67, "winner": "REP", "dem_votes": 6789, "rep_votes": 10567, "total_votes": 17678, "dem_pct": 38.4, "rep_pct": 59.77},
+      "26037": {"margin": -18.56, "winner": "REP", "dem_votes": 12345, "rep_votes": 17234, "total_votes": 30234, "dem_pct": 40.83, "rep_pct": 56.99},
+      "26045": {"margin": -22.34, "winner": "REP", "dem_votes": 8901, "rep_votes": 12890, "total_votes": 22345, "dem_pct": 39.84, "rep_pct": 57.69},
+      "26049": {"margin": 5.67, "winner": "DEM", "dem_votes": 134567, "rep_votes": 123456, "total_votes": 262345, "dem_pct": 51.3, "rep_pct": 47.06},
+      "26055": {"margin": -12.34, "winner": "REP", "dem_votes": 34567, "rep_votes": 42345, "total_votes": 78901, "dem_pct": 43.81, "rep_pct": 53.67},
+      "26063": {"margin": -15.45, "winner": "REP", "dem_votes": 23456, "rep_votes": 30567, "total_votes": 55234, "dem_pct": 42.47, "rep_pct": 55.34},
+      "26065": {"margin": -18.67, "winner": "REP", "dem_votes": 45678, "rep_votes": 62345, "total_votes": 110234, "dem_pct": 41.44, "rep_pct": 56.56},
+      "26073": {"margin": 8.45, "winner": "DEM", "dem_votes": 56789, "rep_votes": 51234, "total_votes": 110234, "dem_pct": 51.52, "rep_pct": 46.48},
+      "26077": {"margin": -25.67, "winner": "REP", "dem_votes": 8901, "rep_votes": 13456, "total_votes": 22789, "dem_pct": 39.06, "rep_pct": 59.05},
+      "26081": {"margin": 2.34, "winner": "DEM", "dem_votes": 234567, "rep_votes": 228901, "total_votes": 467890, "dem_pct": 50.13, "rep_pct": 48.92},
+      "26087": {"margin": -12.56, "winner": "REP", "dem_votes": 23456, "rep_votes": 28901, "total_votes": 53567, "dem_pct": 43.79, "rep_pct": 53.95},
+      "26093": {"margin": -28.45, "winner": "REP", "dem_votes": 34567, "rep_votes": 53456, "total_votes": 90123, "dem_pct": 38.36, "rep_pct": 59.32},
+      "26099": {"margin": 12.34, "winner": "DEM", "dem_votes": 112345, "rep_votes": 95678, "total_votes": 212345, "dem_pct": 52.91, "rep_pct": 45.06},
+      "26115": {"margin": -22.34, "winner": "REP", "dem_votes": 23456, "rep_votes": 34567, "total_votes": 59234, "dem_pct": 39.6, "rep_pct": 58.36},
+      "26121": {"margin": -18.56, "winner": "REP", "dem_votes": 45678, "rep_votes": 62345, "total_votes": 110234, "dem_pct": 41.44, "rep_pct": 56.56},
+      "26125": {"margin": 5.67, "winner": "DEM", "dem_votes": 134567, "rep_votes": 125678, "total_votes": 264567, "dem_pct": 50.86, "rep_pct": 47.5},
+      "26139": {"margin": -15.34, "winner": "REP", "dem_votes": 34567, "rep_votes": 44321, "total_votes": 80789, "dem_pct": 42.79, "rep_pct": 54.86},
+      "26145": {"margin": -18.45, "winner": "REP", "dem_votes": 23456, "rep_votes": 32567, "total_votes": 57234, "dem_pct": 40.98, "rep_pct": 56.91},
+      "26147": {"margin": -22.56, "winner": "REP", "dem_votes": 12345, "rep_votes": 17890, "total_votes": 31234, "dem_pct": 39.53, "rep_pct": 57.27},
+      "26155": {"margin": 8.67, "winner": "DEM", "dem_votes": 67890, "rep_votes": 61234, "total_votes": 132345, "dem_pct": 51.3, "rep_pct": 46.27},
+      "26161": {"margin": 18.45, "winner": "DEM", "dem_votes": 567890, "rep_votes": 456789, "total_votes": 1045678, "dem_pct": 54.31, "rep_pct": 43.68},
+      "26163": {"margin": 52.34, "winner": "DEM", "dem_votes": 378901, "rep_votes": 145678, "total_votes": 534567, "dem_pct": 70.88, "rep_pct": 27.25}
+    }
+  }
+}

@@ -7,7 +7,12 @@ const raceLabels = {
   [RACE_TYPES.GOVERNOR]: 'Governor',
 };
 
-export default function RaceSelector({ selected, onChange }) {
+export default function RaceSelector({ selected, onChange, isPredictionYear = false }) {
+  const isDisabled = (key) => {
+    // Only President and Senate are implemented
+    return key !== RACE_TYPES.PRESIDENT && key !== RACE_TYPES.SENATE;
+  };
+
   return (
     <div className="race-selector">
       {Object.entries(raceLabels).map(([key, label]) => (
@@ -15,7 +20,7 @@ export default function RaceSelector({ selected, onChange }) {
           key={key}
           className={`race-btn ${selected === key ? 'active' : ''}`}
           onClick={() => onChange(key)}
-          disabled={key !== RACE_TYPES.PRESIDENT} // Only presidential data available in Phase 1
+          disabled={isDisabled(key)}
         >
           {label}
         </button>

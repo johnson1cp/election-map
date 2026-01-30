@@ -1,0 +1,15 @@
+{
+  "2024": {
+    "candidates": {
+      "dem": "Mazie Hirono",
+      "rep": "Bob McDermott"
+    },
+    "counties": {
+      "15001": {"margin": 28.45, "winner": "DEM", "dem_votes": 34567, "rep_votes": 21234, "total_votes": 58901, "dem_pct": 58.69, "rep_pct": 36.05},
+      "15003": {"margin": 35.67, "winner": "DEM", "dem_votes": 234567, "rep_votes": 89012, "total_votes": 334567, "dem_pct": 70.1, "rep_pct": 26.6},
+      "15005": {"margin": 22.34, "winner": "DEM", "dem_votes": 12345, "rep_votes": 8456, "total_votes": 21890, "dem_pct": 56.39, "rep_pct": 38.63},
+      "15007": {"margin": 18.56, "winner": "DEM", "dem_votes": 5678, "rep_votes": 4123, "total_votes": 10234, "dem_pct": 55.48, "rep_pct": 40.29},
+      "15009": {"margin": 25.67, "winner": "DEM", "dem_votes": 2345, "rep_votes": 1234, "total_votes": 3789, "dem_pct": 61.89, "rep_pct": 32.57}
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "2024": {
+    "candidates": {
+      "dem": "Bernie Sanders",
+      "rep": "Gerald Malloy"
+    },
+    "counties": {
+      "50001": {"margin": 28.45, "winner": "DEM", "dem_votes": 8901, "rep_votes": 5234, "total_votes": 14567, "dem_pct": 61.11, "rep_pct": 35.93},
+      "50003": {"margin": 35.67, "winner": "DEM", "dem_votes": 5678, "rep_votes": 2890, "total_votes": 8789, "dem_pct": 64.6, "rep_pct": 32.88},
+      "50005": {"margin": 32.34, "winner": "DEM", "dem_votes": 8901, "rep_votes": 5234, "total_votes": 14567, "dem_pct": 61.11, "rep_pct": 35.93},
+      "50007": {"margin": 42.34, "winner": "DEM", "dem_votes": 45678, "rep_votes": 21234, "total_votes": 68901, "dem_pct": 66.3, "rep_pct": 30.82},
+      "50009": {"margin": 18.45, "winner": "DEM", "dem_votes": 3456, "rep_votes": 2567, "total_votes": 6234, "dem_pct": 55.44, "rep_pct": 41.18},
+      "50011": {"margin": 28.67, "winner": "DEM", "dem_votes": 5678, "rep_votes": 3456, "total_votes": 9345, "dem_pct": 60.76, "rep_pct": 36.98},
+      "50013": {"margin": -8.45, "winner": "REP", "dem_votes": 8901, "rep_votes": 10123, "total_votes": 19567, "dem_pct": 45.49, "rep_pct": 51.74},
+      "50015": {"margin": 22.34, "winner": "DEM", "dem_votes": 6789, "rep_votes": 4890, "total_votes": 11890, "dem_pct": 57.1, "rep_pct": 41.12},
+      "50017": {"margin": 38.56, "winner": "DEM", "dem_votes": 12345, "rep_votes": 5678, "total_votes": 18456, "dem_pct": 66.88, "rep_pct": 30.77},
+      "50019": {"margin": -5.67, "winner": "REP", "dem_votes": 5678, "rep_votes": 6234, "total_votes": 12123, "dem_pct": 46.84, "rep_pct": 51.43},
+      "50021": {"margin": 52.34, "winner": "DEM", "dem_votes": 34567, "rep_votes": 12345, "total_votes": 48901, "dem_pct": 70.69, "rep_pct": 25.25},
+      "50023": {"margin": 28.45, "winner": "DEM", "dem_votes": 23456, "rep_votes": 14567, "total_votes": 39012, "dem_pct": 60.12, "rep_pct": 37.34},
+      "50025": {"margin": 48.67, "winner": "DEM", "dem_votes": 45678, "rep_votes": 17890, "total_votes": 65678, "dem_pct": 69.55, "rep_pct": 27.24},
+      "50027": {"margin": -2.34, "winner": "REP", "dem_votes": 5678, "rep_votes": 5890, "total_votes": 11789, "dem_pct": 48.16, "rep_pct": 49.96}
+    }
+  }
+}

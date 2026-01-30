@@ -1,0 +1,30 @@
+{
+  "2024": {
+    "candidates": {
+      "dem": "Ty Pinkins",
+      "rep": "Roger Wicker"
+    },
+    "counties": {
+      "28001": {"margin": 28.45, "winner": "DEM", "dem_votes": 8901, "rep_votes": 5678, "total_votes": 15012, "dem_pct": 59.3, "rep_pct": 37.82},
+      "28005": {"margin": -42.34, "winner": "REP", "dem_votes": 2345, "rep_votes": 5678, "total_votes": 8234, "dem_pct": 28.48, "rep_pct": 68.95},
+      "28009": {"margin": 18.56, "winner": "DEM", "dem_votes": 4567, "rep_votes": 3456, "total_votes": 8234, "dem_pct": 55.47, "rep_pct": 41.97},
+      "28013": {"margin": -35.67, "winner": "REP", "dem_votes": 3456, "rep_votes": 6789, "total_votes": 10456, "dem_pct": 33.05, "rep_pct": 64.93},
+      "28017": {"margin": -28.45, "winner": "REP", "dem_votes": 2345, "rep_votes": 4012, "total_votes": 6567, "dem_pct": 35.72, "rep_pct": 61.1},
+      "28021": {"margin": 35.67, "winner": "DEM", "dem_votes": 5678, "rep_votes": 2890, "total_votes": 8789, "dem_pct": 64.6, "rep_pct": 32.88},
+      "28025": {"margin": -32.56, "winner": "REP", "dem_votes": 4567, "rep_votes": 8234, "total_votes": 13012, "dem_pct": 35.1, "rep_pct": 63.28},
+      "28029": {"margin": 42.34, "winner": "DEM", "dem_votes": 6789, "rep_votes": 2890, "total_votes": 9890, "dem_pct": 68.65, "rep_pct": 29.22},
+      "28033": {"margin": -38.45, "winner": "REP", "dem_votes": 4567, "rep_votes": 9234, "total_votes": 14012, "dem_pct": 32.59, "rep_pct": 65.9},
+      "28037": {"margin": 28.67, "winner": "DEM", "dem_votes": 7890, "rep_votes": 4567, "total_votes": 12678, "dem_pct": 62.24, "rep_pct": 36.02},
+      "28045": {"margin": -22.34, "winner": "REP", "dem_votes": 5678, "rep_votes": 8234, "total_votes": 14234, "dem_pct": 39.89, "rep_pct": 57.85},
+      "28047": {"margin": -28.67, "winner": "REP", "dem_votes": 3456, "rep_votes": 5678, "total_votes": 9345, "dem_pct": 36.98, "rep_pct": 60.76},
+      "28049": {"margin": -35.67, "winner": "REP", "dem_votes": 23456, "rep_votes": 45678, "total_votes": 70789, "dem_pct": 33.13, "rep_pct": 64.52},
+      "28059": {"margin": 52.34, "winner": "DEM", "dem_votes": 34567, "rep_votes": 11234, "total_votes": 47012, "dem_pct": 73.52, "rep_pct": 23.89},
+      "28067": {"margin": -18.56, "winner": "REP", "dem_votes": 6789, "rep_votes": 9234, "total_votes": 16234, "dem_pct": 41.82, "rep_pct": 56.88},
+      "28073": {"margin": -32.45, "winner": "REP", "dem_votes": 3456, "rep_votes": 6234, "total_votes": 9890, "dem_pct": 34.94, "rep_pct": 63.03},
+      "28081": {"margin": -25.67, "winner": "REP", "dem_votes": 8901, "rep_votes": 13456, "total_votes": 22789, "dem_pct": 39.06, "rep_pct": 59.05},
+      "28089": {"margin": -18.45, "winner": "REP", "dem_votes": 23456, "rep_votes": 32567, "total_votes": 57234, "dem_pct": 40.98, "rep_pct": 56.91},
+      "28093": {"margin": -35.78, "winner": "REP", "dem_votes": 5678, "rep_votes": 11234, "total_votes": 17234, "dem_pct": 32.94, "rep_pct": 65.18},
+      "28121": {"margin": -15.34, "winner": "REP", "dem_votes": 45678, "rep_votes": 58901, "total_votes": 107012, "dem_pct": 42.68, "rep_pct": 55.04}
+    }
+  }
+}
