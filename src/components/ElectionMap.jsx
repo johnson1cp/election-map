@@ -19,6 +19,9 @@ export default function ElectionMap() {
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [tooltip, setTooltip] = useState(null);
   const [dotsData, setDotsData] = useState(null);
+  const [showCountyView, setShowCountyView] = useState(false);
+  const [nvCountyData, setNvCountyData] = useState(null);
+  const [nvCountiesGeo, setNvCountiesGeo] = useState(null);
 
   const { nationalData, stateData, loading, loadStateData } = useElectionData(raceType);
 
@@ -47,6 +50,19 @@ export default function ElectionMap() {
         .catch(console.error);
     }
   }, [raceType, districtsGeo]);
+
+  // Load NV county data for House races when NV is selected
+  useEffect(() => {
+    if (raceType === RACE_TYPES.HOUSE && selectedState === 'NV' && !nvCountyData) {
+      Promise.all([
+        fetch('/data/results/house/nv-county-results.json').then(r => r.json()),
+        fetch('/data/geo/nv-counties.json').then(r => r.json())
+      ]).then(([data, geo]) => {
+        setNvCountyData(data);
+        setNvCountiesGeo(geo);
+      }).catch(console.error);
+    }
+  }, [raceType, selectedState, nvCountyData]);
 
   // Auto-switch to Senate when a prediction year is selected
   const isPredictionYear = PREDICTION_YEARS.includes(year);
@@ -84,7 +100,10 @@ export default function ElectionMap() {
   }, [countiesGeo, loadStateData, raceType, selectedState]);
 
   const handleBack = useCallback(() => {
-    if (selectedDistrict) {
+    if (showCountyView) {
+      // If county view is open, close it first
+      setShowCountyView(false);
+    } else if (selectedDistrict) {
       // If district selected, go back to state view
       setSelectedDistrict(null);
     } else {
@@ -92,7 +111,7 @@ export default function ElectionMap() {
       setSelectedState(null);
       setSelectedCounty(null);
     }
-  }, [selectedDistrict]);
+  }, [selectedDistrict, showCountyView]);
 
   const handleCountyClick = useCallback((fips, countyName) => {
     if (!fips) {
@@ -110,18 +129,26 @@ export default function ElectionMap() {
     if (selectedDistrict === districtId) {
       // Clicking same district clears selection, goes back to state view
       setSelectedDistrict(null);
+      setShowCountyView(false);
     } else if (selectedState === stateAbbr) {
       // Same state, select this district
       setSelectedDistrict(districtId);
+      setShowCountyView(false); // Reset county view when changing districts
     } else {
       // Different state - just select the state first (show district list)
       setSelectedState(stateAbbr);
       setSelectedDistrict(null);
+      setShowCountyView(false);
     }
   }, [selectedState, selectedDistrict]);
 
   const handleClearDistrict = useCallback(() => {
     setSelectedDistrict(null);
+    setShowCountyView(false);
+  }, []);
+
+  const handleToggleCountyView = useCallback(() => {
+    setShowCountyView(prev => !prev);
   }, []);
 
   const handleBackToResults = useCallback(() => {
@@ -195,7 +222,7 @@ export default function ElectionMap() {
     ...tooltip,
     data: {
       ...tooltip.data,
-      result: getTooltipResult(tooltip.data, nationalData, stateData, selectedState, year, raceType),
+      result: getTooltipResult(tooltip.data, nationalData, stateData, selectedState, year, raceType, showCountyView, selectedDistrict, nvCountyData),
     },
   } : null;
 
@@ -229,6 +256,9 @@ export default function ElectionMap() {
             onCountyClick={handleCountyClick}
             onDistrictClick={handleDistrictClick}
             onDistrictHover={handleDistrictHover}
+            showCountyView={showCountyView}
+            nvCountiesGeo={nvCountiesGeo}
+            nvCountyData={nvCountyData}
           />
           <MapLegend />
         </div>
@@ -248,6 +278,9 @@ export default function ElectionMap() {
           onBackToResults={handleBackToResults}
           onSwitchToPresident={handleSwitchToPresident}
           onDistrictClick={handleDistrictClick}
+          showCountyView={showCountyView}
+          onToggleCountyView={handleToggleCountyView}
+          nvCountyData={nvCountyData}
         />
       </div>
 
@@ -261,8 +294,22 @@ export default function ElectionMap() {
   );
 }
 
-function getTooltipResult(data, nationalData, stateData, selectedState, year, raceType) {
+function getTooltipResult(data, nationalData, stateData, selectedState, year, raceType, showCountyView, selectedDistrict, nvCountyData) {
   if (!data || !nationalData?.[year]) return null;
+
+  // NV county tooltip when in county view mode for House
+  if (showCountyView && selectedDistrict?.startsWith('32') && data.name && nvCountyData?.[year]?.[selectedDistrict]?.counties) {
+    // data.name is the county name from the tooltip
+    const countyName = data.name.replace(' County', ''); // in case it has " County" suffix
+    const countyData = nvCountyData[year][selectedDistrict].counties[countyName];
+    if (countyData) {
+      return {
+        ...countyData,
+        isHouseCounty: true,
+        countyName: countyName,
+      };
+    }
+  }
 
   // District tooltip for House races
   if (data.districtId && raceType === RACE_TYPES.HOUSE) {

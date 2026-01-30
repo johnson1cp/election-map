@@ -638,6 +638,85 @@ body {
   border-left-width: 4px;
 }
 
+/* Show Counties button */
+.show-counties-btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.show-counties-btn:hover {
+  background: var(--hover-bg);
+  color: var(--text-primary);
+}
+
+.show-counties-btn.active {
+  background: rgba(100, 149, 237, 0.2);
+  border-color: rgba(100, 149, 237, 0.5);
+  color: var(--text-primary);
+}
+
+/* County results section in district detail */
+.county-results-section {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+}
+
+.county-results-section h4 {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.county-results-table {
+  font-size: 0.8rem;
+}
+
+.county-results-table .table-header {
+  display: flex;
+  padding: 4px 6px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.county-results-table .county-row {
+  display: flex;
+  padding: 6px;
+  border-bottom: 1px solid var(--border-color);
+  border-left: 3px solid transparent;
+}
+
+.county-results-table .county-row.dem {
+  border-left-color: var(--dem-color);
+}
+
+.county-results-table .county-row.rep {
+  border-left-color: var(--rep-color);
+}
+
+.county-results-table .county-row.ind {
+  border-left-color: #9b59b6;
+}
+
+.col-county {
+  flex: 1;
+  font-weight: 500;
+}
+
 .no-race-message {
   font-size: 1.1rem;
   color: var(--text-secondary);

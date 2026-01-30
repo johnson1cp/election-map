@@ -4,22 +4,32 @@ export default function Tooltip({ data, position }) {
   const { name, result } = data;
 
   // Build candidates list, sorted by votes
-  const candidates = [];
+  let candidates = [];
   if (result) {
-    if (result.dem_candidate && result.dem_votes > 0) {
-      candidates.push({ party: 'DEM', name: result.dem_candidate, votes: result.dem_votes, pct: result.dem_pct });
+    // Handle NV House county data with pre-built candidates array
+    if (result.isHouseCounty && result.candidates) {
+      candidates = result.candidates.map(c => ({
+        party: c.party,
+        name: c.name,
+        votes: c.votes,
+        pct: c.pct,
+      }));
+    } else {
+      if (result.dem_candidate && result.dem_votes > 0) {
+        candidates.push({ party: 'DEM', name: result.dem_candidate, votes: result.dem_votes, pct: result.dem_pct });
+      }
+      if (result.rep_candidate && result.rep_votes > 0) {
+        candidates.push({ party: 'REP', name: result.rep_candidate, votes: result.rep_votes, pct: result.rep_pct });
+      }
+      // Add other candidates if present
+      if (result.other_candidates) {
+        result.other_candidates.forEach(c => {
+          candidates.push({ party: c.party || 'IND', name: c.name, votes: c.votes, pct: c.pct });
+        });
+      }
+      // Sort by votes descending
+      candidates.sort((a, b) => (b.votes || 0) - (a.votes || 0));
     }
-    if (result.rep_candidate && result.rep_votes > 0) {
-      candidates.push({ party: 'REP', name: result.rep_candidate, votes: result.rep_votes, pct: result.rep_pct });
-    }
-    // Add other candidates if present
-    if (result.other_candidates) {
-      result.other_candidates.forEach(c => {
-        candidates.push({ party: c.party || 'IND', name: c.name, votes: c.votes, pct: c.pct });
-      });
-    }
-    // Sort by votes descending
-    candidates.sort((a, b) => (b.votes || 0) - (a.votes || 0));
   }
 
   // Fallback for races with only D/R (no other_candidates array)
@@ -59,7 +69,7 @@ export default function Tooltip({ data, position }) {
       }}
     >
       <div className="tooltip-title">
-        {name}
+        {result?.isHouseCounty ? `${result.countyName} County` : name}
         {result?.electoralVotes && (
           <span className="tooltip-ev">{result.electoralVotes} EV</span>
         )}

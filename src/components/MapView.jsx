@@ -47,6 +47,9 @@ export default function MapView({
   onDistrictClick,
   onDistrictHover,
   onMapReady,
+  showCountyView,
+  nvCountiesGeo,
+  nvCountyData,
 }) {
   const isHouse = raceType === RACE_TYPES.HOUSE;
   const containerRef = useRef(null);
@@ -510,6 +513,107 @@ export default function MapView({
       });
     }
   }, [mapLoaded, districtsGeo]);
+
+  // Add NV counties source and layers for House county drilldown
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mapLoaded || !nvCountiesGeo) return;
+
+    if (map.getSource('nv-counties')) {
+      map.getSource('nv-counties').setData(nvCountiesGeo);
+    } else {
+      map.addSource('nv-counties', {
+        type: 'geojson',
+        data: nvCountiesGeo,
+        promoteId: 'fips',
+      });
+
+      const beforeLabel = basemapLabelLayerRef.current || undefined;
+
+      // NV counties fill layer
+      map.addLayer({
+        id: 'nv-counties-fill',
+        type: 'fill',
+        source: 'nv-counties',
+        paint: {
+          'fill-color': '#555',
+          'fill-opacity': 0.5,
+        },
+        layout: { visibility: 'none' },
+      }, beforeLabel);
+
+      // NV counties border layer - thin lines
+      map.addLayer({
+        id: 'nv-counties-border',
+        type: 'line',
+        source: 'nv-counties',
+        paint: {
+          'line-color': 'rgba(255, 255, 255, 0.4)',
+          'line-width': 0.75,
+        },
+        layout: { visibility: 'none' },
+      }, beforeLabel);
+
+      // NV county hover highlight
+      map.addLayer({
+        id: 'nv-counties-hover',
+        type: 'line',
+        source: 'nv-counties',
+        paint: {
+          'line-color': '#ffffff',
+          'line-width': 2,
+        },
+        filter: ['==', ['get', 'fips'], ''],
+        layout: { visibility: 'none' },
+      }, beforeLabel);
+
+      // Hover handlers for NV counties
+      map.on('mousemove', 'nv-counties-fill', (e) => {
+        if (e.features?.length > 0) {
+          map.getCanvas().style.cursor = 'pointer';
+          const feat = e.features[0];
+          const fips = feat.properties.fips;
+          const name = feat.properties.name;
+          map.setFilter('nv-counties-hover', ['==', ['get', 'fips'], fips]);
+          onCountyHover?.(e, fips, name);
+        }
+      });
+
+      map.on('mouseleave', 'nv-counties-fill', () => {
+        map.getCanvas().style.cursor = '';
+        map.setFilter('nv-counties-hover', ['==', ['get', 'fips'], '']);
+        onCountyHover?.(null);
+      });
+    }
+  }, [mapLoaded, nvCountiesGeo, onCountyHover]);
+
+  // Show/hide and color NV counties layer based on showCountyView
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mapLoaded) return;
+
+    const visibility = showCountyView && selectedDistrict?.startsWith('32') ? 'visible' : 'none';
+
+    if (map.getLayer('nv-counties-fill')) {
+      map.setLayoutProperty('nv-counties-fill', 'visibility', visibility);
+      map.setLayoutProperty('nv-counties-border', 'visibility', visibility);
+      map.setLayoutProperty('nv-counties-hover', 'visibility', visibility);
+
+      // Color counties by winner if showing
+      if (showCountyView && selectedDistrict && nvCountyData?.[year]?.[selectedDistrict]?.counties) {
+        const countyResults = nvCountyData[year][selectedDistrict].counties;
+        const colorExpr = ['match', ['get', 'name']];
+
+        Object.entries(countyResults).forEach(([countyName, data]) => {
+          const color = getMarginColor(Math.abs(data.margin), data.winner);
+          colorExpr.push(countyName, color);
+        });
+        colorExpr.push('#555'); // default
+
+        map.setPaintProperty('nv-counties-fill', 'fill-color', colorExpr);
+      }
+    }
+  }, [mapLoaded, showCountyView, selectedDistrict, nvCountyData, year]);
 
   // Add county-dots source and layers when dotsData is available
   useEffect(() => {

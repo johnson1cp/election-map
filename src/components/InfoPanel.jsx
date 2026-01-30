@@ -7,7 +7,7 @@ const SENATE_STATES_2024 = new Set([
   'VA', 'WA', 'WV', 'WI', 'WY'
 ]);
 
-export default function InfoPanel({ year, raceType, selectedState, selectedCounty, selectedDistrict, results, stateData, onBack, onClearCounty, onClearDistrict, isPredictionYear = false, onBackToResults, onSwitchToPresident, onDistrictClick }) {
+export default function InfoPanel({ year, raceType, selectedState, selectedCounty, selectedDistrict, results, stateData, onBack, onClearCounty, onClearDistrict, isPredictionYear = false, onBackToResults, onSwitchToPresident, onDistrictClick, showCountyView, onToggleCountyView, nvCountyData }) {
   if (!results || !year) return null;
 
   const yearData = results[year];
@@ -24,7 +24,7 @@ export default function InfoPanel({ year, raceType, selectedState, selectedCount
 
   // Handle House races
   if (isHouse) {
-    return renderHousePanel(yearData, onSwitchToPresident, year, selectedState, selectedDistrict, onBack, onClearDistrict, onDistrictClick);
+    return renderHousePanel(yearData, onSwitchToPresident, year, selectedState, selectedDistrict, onBack, onClearDistrict, onDistrictClick, showCountyView, onToggleCountyView, nvCountyData);
   }
 
   // Check if state has a Senate race in 2024
@@ -361,7 +361,7 @@ function renderPredictionPanel(yearData, selectedState, onBack, year, onBackToRe
 }
 
 // Render House panel
-function renderHousePanel(yearData, onSwitchToPresident, year, selectedState, selectedDistrict, onBack, onClearDistrict, onDistrictClick) {
+function renderHousePanel(yearData, onSwitchToPresident, year, selectedState, selectedDistrict, onBack, onClearDistrict, onDistrictClick, showCountyView, onToggleCountyView, nvCountyData) {
   const summary = yearData.summary || {};
   const districts = yearData.districts || {};
 
@@ -446,7 +446,7 @@ function renderHousePanel(yearData, onSwitchToPresident, year, selectedState, se
         </div>
 
         {/* District detail section - shown below state summary when district selected */}
-        {selectedDistrictData && renderDistrictDetail(selectedDistrictData, selectedDistrict, onClearDistrict)}
+        {selectedDistrictData && renderDistrictDetail(selectedDistrictData, selectedDistrict, onClearDistrict, selectedState, showCountyView, onToggleCountyView, nvCountyData, year)}
       </div>
     );
   }
@@ -510,7 +510,7 @@ function renderHousePanel(yearData, onSwitchToPresident, year, selectedState, se
 }
 
 // Render district detail section (shown below state summary)
-function renderDistrictDetail(d, districtId, onClearDistrict) {
+function renderDistrictDetail(d, districtId, onClearDistrict, selectedState, showCountyView, onToggleCountyView, nvCountyData, year) {
   const districtNum = parseInt(districtId.substring(2), 10);
   const districtLabel = districtNum === 0 ? 'At-Large' : `District ${districtNum}`;
   const totalVotes = d.total_votes || (d.dem_votes + d.rep_votes);
@@ -542,6 +542,10 @@ function renderDistrictDetail(d, districtId, onClearDistrict) {
   candidates.sort((a, b) => (b.votes || 0) - (a.votes || 0));
 
   const winnerClass = d.winner === 'DEM' ? 'dem' : d.winner === 'REP' ? 'rep' : 'ind';
+
+  // Check if this district has county data available (NV only for now)
+  const hasCountyData = selectedState === 'NV' && nvCountyData?.[year]?.[districtId]?.counties;
+  const countyData = hasCountyData ? nvCountyData[year][districtId].counties : null;
 
   return (
     <div className="district-detail">
@@ -577,6 +581,47 @@ function renderDistrictDetail(d, districtId, onClearDistrict) {
           <span className="col-pct"></span>
         </div>
       </div>
+
+      {/* Show Counties button for NV districts */}
+      {hasCountyData && (
+        <button
+          className={`show-counties-btn ${showCountyView ? 'active' : ''}`}
+          onClick={onToggleCountyView}
+        >
+          {showCountyView ? 'Hide Counties' : 'Show Counties'}
+        </button>
+      )}
+
+      {/* County results table */}
+      {showCountyView && countyData && (
+        <div className="county-results-section">
+          <h4>County Results</h4>
+          <div className="county-results-table">
+            <div className="table-header">
+              <span className="col-county">County</span>
+              <span className="col-winner">Winner</span>
+              <span className="col-margin">Margin</span>
+            </div>
+            {Object.entries(countyData)
+              .sort((a, b) => b[1].total_votes - a[1].total_votes)
+              .map(([countyName, county]) => {
+                const countyWinnerClass = county.winner === 'DEM' ? 'dem' : county.winner === 'REP' ? 'rep' : 'ind';
+                return (
+                  <div key={countyName} className={`table-row county-row ${countyWinnerClass}`}>
+                    <span className="col-county">{countyName}</span>
+                    <span className="col-winner">
+                      {formatCandidateName(county.winner_name)}
+                      <span className="party-label"> ({getPartyLabel(county.winner)})</span>
+                    </span>
+                    <span className={`col-margin ${countyWinnerClass}-text`}>
+                      {getPartyLabel(county.winner)}+{Math.abs(county.margin).toFixed(0)}
+                    </span>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

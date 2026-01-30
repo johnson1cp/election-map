@@ -1,0 +1,828 @@
+{
+  "2024": {
+    "3201": {
+      "candidates": [
+        {
+          "name": "Dina Titus",
+          "party": "DEM",
+          "incumbent": true
+        },
+        {
+          "name": "Mark Robertson",
+          "party": "REP",
+          "incumbent": false
+        },
+        {
+          "name": "Ron Quince",
+          "party": "NPP",
+          "incumbent": false
+        },
+        {
+          "name": "William Hoge",
+          "party": "IAP",
+          "incumbent": false
+        },
+        {
+          "name": "David Havlicek",
+          "party": "LPN",
+          "incumbent": false
+        },
+        {
+          "name": "David Goossen",
+          "party": "NPP",
+          "incumbent": false
+        }
+      ],
+      "counties": {
+        "Clark": {
+          "total_votes": 322899,
+          "winner": "DEM",
+          "winner_name": "Dina Titus",
+          "margin": 7.505442878423295,
+          "candidates": [
+            {
+              "name": "Dina Titus",
+              "party": "DEM",
+              "votes": 167885,
+              "pct": 51.993038070728005,
+              "isWinner": true
+            },
+            {
+              "name": "Mark Robertson",
+              "party": "REP",
+              "votes": 143650,
+              "pct": 44.48759519230471,
+              "isWinner": false
+            },
+            {
+              "name": "Ron Quince",
+              "party": "NPP",
+              "votes": 3321,
+              "pct": 1.0284949783059099,
+              "isWinner": false
+            },
+            {
+              "name": "William Hoge",
+              "party": "IAP",
+              "votes": 2736,
+              "pct": 0.8473237761653025,
+              "isWinner": false
+            },
+            {
+              "name": "David Havlicek",
+              "party": "LPN",
+              "votes": 2711,
+              "pct": 0.8395814170994645,
+              "isWinner": false
+            },
+            {
+              "name": "David Goossen",
+              "party": "NPP",
+              "votes": 2596,
+              "pct": 0.8039665653966102,
+              "isWinner": false
+            }
+          ]
+        }
+      }
+    },
+    "3202": {
+      "candidates": [
+        {
+          "name": "Mark Amodei",
+          "party": "REP",
+          "incumbent": true
+        },
+        {
+          "name": "Greg Kidd",
+          "party": "IND",
+          "incumbent": false
+        },
+        {
+          "name": "Lynn Chapman",
+          "party": "IAP",
+          "incumbent": false
+        },
+        {
+          "name": "Avi Tachiquin",
+          "party": "LPN",
+          "incumbent": false
+        }
+      ],
+      "counties": {
+        "Carson City": {
+          "total_votes": 30063,
+          "winner": "REP",
+          "winner_name": "Mark Amodei",
+          "margin": -17.446695273259493,
+          "candidates": [
+            {
+              "name": "Mark Amodei",
+              "party": "REP",
+              "votes": 16112,
+              "pct": 53.59411901673153,
+              "isWinner": true
+            },
+            {
+              "name": "Greg Kidd",
+              "party": "IND",
+              "votes": 10867,
+              "pct": 36.14742374347204,
+              "isWinner": false
+            },
+            {
+              "name": "Lynn Chapman",
+              "party": "IAP",
+              "votes": 2022,
+              "pct": 6.725875661111666,
+              "isWinner": false
+            },
+            {
+              "name": "Avi Tachiquin",
+              "party": "LPN",
+              "votes": 1062,
+              "pct": 3.532581578684762,
+              "isWinner": false
+            }
+          ]
+        },
+        "Churchill": {
+          "total_votes": 12963,
+          "winner": "REP",
+          "winner_name": "Mark Amodei",
+          "margin": -44.357016122811075,
+          "candidates": [
+            {
+              "name": "Mark Amodei",
+              "party": "REP",
+              "votes": 8949,
+              "pct": 69.0349456144411,
+              "isWinner": true
+            },
+            {
+              "name": "Greg Kidd",
+              "party": "IND",
+              "votes": 3199,
+              "pct": 24.677929491630024,
+              "isWinner": false
+            },
+            {
+              "name": "Lynn Chapman",
+              "party": "IAP",
+              "votes": 506,
+              "pct": 3.9034174188073747,
+              "isWinner": false
+            },
+            {
+              "name": "Avi Tachiquin",
+              "party": "LPN",
+              "votes": 309,
+              "pct": 2.3837074751214997,
+              "isWinner": false
+            }
+          ]
+        },
+        "Douglas": {
+          "total_votes": 33904,
+          "winner": "REP",
+          "winner_name": "Mark Amodei",
+          "margin": -36.028197262859834,
+          "candidates": [
+            {
+              "name": "Mark Amodei",
+              "party": "REP",
+              "votes": 22186,
+              "pct": 65.43770646531382,
+              "isWinner": true
+            },
+            {
+              "name": "Greg Kidd",
+              "party": "IND",
+              "votes": 9971,
+              "pct": 29.409509202453986,
+              "isWinner": false
+            },
+            {
+              "name": "Lynn Chapman",
+              "party": "IAP",
+              "votes": 1096,
+              "pct": 3.232656913638509,
+              "isWinner": false
+            },
+            {
+              "name": "Avi Tachiquin",
+              "party": "LPN",
+              "votes": 651,
+              "pct": 1.9201274185936763,
+              "isWinner": false
+            }
+          ]
+        },
+        "Elko": {
+          "total_votes": 21460,
+          "winner": "REP",
+          "winner_name": "Mark Amodei",
+          "margin": -57.222739981360675,
+          "candidates": [
+            {
+              "name": "Mark Amodei",
+              "party": "REP",
+              "votes": 15748,
+              "pct": 73.38303821062442,
+              "isWinner": true
+            },
+            {
+              "name": "Greg Kidd",
+              "party": "IND",
+              "votes": 3468,
+              "pct": 16.16029822926375,
+              "isWinner": false
+            },
+            {
+              "name": "Lynn Chapman",
+              "party": "IAP",
+              "votes": 1253,
+              "pct": 5.838769804287046,
+              "isWinner": false
+            },
+            {
+              "name": "Avi Tachiquin",
+              "party": "LPN",
+              "votes": 991,
+              "pct": 4.61789375582479,
+              "isWinner": false
+            }
+          ]
+        },
+        "Eureka": {
+          "total_votes": 994,
+          "winner": "REP",
+          "winner_name": "Mark Amodei",
+          "margin": -71.73038229376259,
+          "candidates": [
+            {
+              "name": "Mark Amodei",
+              "party": "REP",
+              "votes": 825,
+              "pct": 82.9979879275654,
+              "isWinner": true
+            },
+            {
+              "name": "Greg Kidd",
+              "party": "IND",
+              "votes": 112,
+              "pct": 11.267605633802818,
+              "isWinner": false
+            },
+            {
+              "name": "Lynn Chapman",
+              "party": "IAP",
+              "votes": 35,
+              "pct": 3.5211267605633805,
+              "isWinner": false
+            },
+            {
+              "name": "Avi Tachiquin",
+              "party": "LPN",
+              "votes": 22,
+              "pct": 2.2132796780684103,
+              "isWinner": false
+            }
+          ]
+        },
+        "Humboldt": {
+          "total_votes": 7751,
+          "winner": "REP",
+          "winner_name": "Mark Amodei",
+          "margin": -52.070700554767136,
+          "candidates": [
+            {
+              "name": "Mark Amodei",
+              "party": "REP",
+              "votes": 5630,
+              "pct": 72.63578893046059,
+              "isWinner": true
+            },
+            {
+              "name": "Greg Kidd",
+              "party": "IND",
+              "votes": 1594,
+              "pct": 20.565088375693456,
+              "isWinner": false
+            },
+            {
+              "name": "Avi Tachiquin",
+              "party": "LPN",
+              "votes": 268,
+              "pct": 3.4576183718229903,
+              "isWinner": false
+            },
+            {
+              "name": "Lynn Chapman",
+              "party": "IAP",
+              "votes": 259,
+              "pct": 3.3415043220229643,
+              "isWinner": false
+            }
+          ]
+        },
+        "Lander": {
+          "total_votes": 2651,
+          "winner": "REP",
+          "winner_name": "Mark Amodei",
+          "margin": -49.86797434930215,
+          "candidates": [
+            {
+              "name": "Mark Amodei",
+              "party": "REP",
+              "votes": 1875,
+              "pct": 70.72802715956243,
+              "isWinner": true
+            },
+            {
+              "name": "Greg Kidd",
+              "party": "IND",
+              "votes": 553,
+              "pct": 20.860052810260278,
+              "isWinner": false
+            },
+            {
+              "name": "Avi Tachiquin",
+              "party": "LPN",
+              "votes": 115,
+              "pct": 4.337985665786496,
+              "isWinner": false
+            },
+            {
+              "name": "Lynn Chapman",
+              "party": "IAP",
+              "votes": 108,
+              "pct": 4.073934364390796,
+              "isWinner": false
+            }
+          ]
+        },
+        "Lyon": {
+          "total_votes": 31885,
+          "winner": "REP",
+          "winner_name": "Mark Amodei",
+          "margin": -39.83691390936177,
+          "candidates": [
+            {
+              "name": "Mark Amodei",
+              "party": "REP",
+              "votes": 21137,
+              "pct": 66.29135957346715,
+              "isWinner": true
+            },
+            {
+              "name": "Greg Kidd",
+              "party": "IND",
+              "votes": 8435,
+              "pct": 26.454445664105382,
+              "isWinner": false
+            },
+            {
+              "name": "Lynn Chapman",
+              "party": "IAP",
+              "votes": 1319,
+              "pct": 4.13674141445821,
+              "isWinner": false
+            },
+            {
+              "name": "Avi Tachiquin",
+              "party": "LPN",
+              "votes": 994,
+              "pct": 3.1174533479692643,
+              "isWinner": false
+            }
+          ]
+        },
+        "Pershing": {
+          "total_votes": 2208,
+          "winner": "REP",
+          "winner_name": "Mark Amodei",
+          "margin": -53.07971014492754,
+          "candidates": [
+            {
+              "name": "Mark Amodei",
+              "party": "REP",
+              "votes": 1616,
+              "pct": 73.18840579710145,
+              "isWinner": true
+            },
+            {
+              "name": "Greg Kidd",
+              "party": "IND",
+              "votes": 444,
+              "pct": 20.108695652173914,
+              "isWinner": false
+            },
+            {
+              "name": "Lynn Chapman",
+              "party": "IAP",
+              "votes": 94,
+              "pct": 4.257246376811595,
+              "isWinner": false
+            },
+            {
+              "name": "Avi Tachiquin",
+              "party": "LPN",
+              "votes": 54,
+              "pct": 2.4456521739130435,
+              "isWinner": false
+            }
+          ]
+        },
+        "Storey": {
+          "total_votes": 2977,
+          "winner": "REP",
+          "winner_name": "Mark Amodei",
+          "margin": -40.27544507893853,
+          "candidates": [
+            {
+              "name": "Mark Amodei",
+              "party": "REP",
+              "votes": 1975,
+              "pct": 66.3419549882432,
+              "isWinner": true
+            },
+            {
+              "name": "Greg Kidd",
+              "party": "IND",
+              "votes": 776,
+              "pct": 26.06650990930467,
+              "isWinner": false
+            },
+            {
+              "name": "Lynn Chapman",
+              "party": "IAP",
+              "votes": 143,
+              "pct": 4.8034934497816595,
+              "isWinner": false
+            },
+            {
+              "name": "Avi Tachiquin",
+              "party": "LPN",
+              "votes": 83,
+              "pct": 2.788041652670474,
+              "isWinner": false
+            }
+          ]
+        },
+        "Washoe": {
+          "total_votes": 248573,
+          "winner": "REP",
+          "winner_name": "Mark Amodei",
+          "margin": -6.75576188886162,
+          "candidates": [
+            {
+              "name": "Mark Amodei",
+              "party": "REP",
+              "votes": 120780,
+              "pct": 48.58934799837472,
+              "isWinner": true
+            },
+            {
+              "name": "Greg Kidd",
+              "party": "IND",
+              "votes": 103987,
+              "pct": 41.8335861095131,
+              "isWinner": false
+            },
+            {
+              "name": "Lynn Chapman",
+              "party": "IAP",
+              "votes": 12724,
+              "pct": 5.118818214367611,
+              "isWinner": false
+            },
+            {
+              "name": "Avi Tachiquin",
+              "party": "LPN",
+              "votes": 11082,
+              "pct": 4.458247677744566,
+              "isWinner": false
+            }
+          ]
+        },
+        "White Pine": {
+          "total_votes": 4154,
+          "winner": "REP",
+          "winner_name": "Mark Amodei",
+          "margin": -58.4256138661531,
+          "candidates": [
+            {
+              "name": "Mark Amodei",
+              "party": "REP",
+              "votes": 3085,
+              "pct": 74.26576793452094,
+              "isWinner": true
+            },
+            {
+              "name": "Greg Kidd",
+              "party": "IND",
+              "votes": 658,
+              "pct": 15.840154068367838,
+              "isWinner": false
+            },
+            {
+              "name": "Lynn Chapman",
+              "party": "IAP",
+              "votes": 225,
+              "pct": 5.416466056812711,
+              "isWinner": false
+            },
+            {
+              "name": "Avi Tachiquin",
+              "party": "LPN",
+              "votes": 186,
+              "pct": 4.477611940298507,
+              "isWinner": false
+            }
+          ]
+        }
+      }
+    },
+    "3203": {
+      "candidates": [
+        {
+          "name": "Susie Lee",
+          "party": "DEM",
+          "incumbent": true
+        },
+        {
+          "name": "Drew Johnson",
+          "party": "REP",
+          "incumbent": false
+        }
+      ],
+      "counties": {
+        "Clark": {
+          "total_votes": 372388,
+          "winner": "DEM",
+          "winner_name": "Susie Lee",
+          "margin": 2.744449337787465,
+          "candidates": [
+            {
+              "name": "Susie Lee",
+              "party": "DEM",
+              "votes": 191304,
+              "pct": 51.37222466889373,
+              "isWinner": true
+            },
+            {
+              "name": "Drew Johnson",
+              "party": "REP",
+              "votes": 181084,
+              "pct": 48.627775331106264,
+              "isWinner": false
+            }
+          ]
+        }
+      }
+    },
+    "3204": {
+      "candidates": [
+        {
+          "name": "Steven Horsford",
+          "party": "DEM",
+          "incumbent": true
+        },
+        {
+          "name": "John Lee",
+          "party": "REP",
+          "incumbent": false
+        },
+        {
+          "name": "Russell Best",
+          "party": "IAP",
+          "incumbent": false
+        },
+        {
+          "name": "Tim Ferreira",
+          "party": "LPN",
+          "incumbent": false
+        }
+      ],
+      "counties": {
+        "Clark": {
+          "total_votes": 300480,
+          "winner": "DEM",
+          "winner_name": "Steven Horsford",
+          "margin": 12.958599574014912,
+          "candidates": [
+            {
+              "name": "Steven Horsford",
+              "party": "DEM",
+              "votes": 165576,
+              "pct": 55.1038338658147,
+              "isWinner": true
+            },
+            {
+              "name": "John Lee",
+              "party": "REP",
+              "votes": 126638,
+              "pct": 42.14523429179979,
+              "isWinner": false
+            },
+            {
+              "name": "Russell Best",
+              "party": "IAP",
+              "votes": 4328,
+              "pct": 1.4403620873269434,
+              "isWinner": false
+            },
+            {
+              "name": "Tim Ferreira",
+              "party": "LPN",
+              "votes": 3938,
+              "pct": 1.3105697550585729,
+              "isWinner": false
+            }
+          ]
+        },
+        "Esmeralda": {
+          "total_votes": 402,
+          "winner": "REP",
+          "winner_name": "John Lee",
+          "margin": -61.940298507462686,
+          "candidates": [
+            {
+              "name": "John Lee",
+              "party": "REP",
+              "votes": 317,
+              "pct": 78.85572139303483,
+              "isWinner": true
+            },
+            {
+              "name": "Steven Horsford",
+              "party": "DEM",
+              "votes": 68,
+              "pct": 16.91542288557214,
+              "isWinner": false
+            },
+            {
+              "name": "Russell Best",
+              "party": "IAP",
+              "votes": 9,
+              "pct": 2.2388059701492535,
+              "isWinner": false
+            },
+            {
+              "name": "Tim Ferreira",
+              "party": "LPN",
+              "votes": 8,
+              "pct": 1.9900497512437811,
+              "isWinner": false
+            }
+          ]
+        },
+        "Lincoln": {
+          "total_votes": 2407,
+          "winner": "REP",
+          "winner_name": "John Lee",
+          "margin": -69.04860822600747,
+          "candidates": [
+            {
+              "name": "John Lee",
+              "party": "REP",
+              "votes": 2008,
+              "pct": 83.42334856668052,
+              "isWinner": true
+            },
+            {
+              "name": "Steven Horsford",
+              "party": "DEM",
+              "votes": 346,
+              "pct": 14.374740340673037,
+              "isWinner": false
+            },
+            {
+              "name": "Russell Best",
+              "party": "IAP",
+              "votes": 28,
+              "pct": 1.1632737847943497,
+              "isWinner": false
+            },
+            {
+              "name": "Tim Ferreira",
+              "party": "LPN",
+              "votes": 25,
+              "pct": 1.038637307852098,
+              "isWinner": false
+            }
+          ]
+        },
+        "Lyon": {
+          "total_votes": 219,
+          "winner": "REP",
+          "winner_name": "John Lee",
+          "margin": -64.84018264840182,
+          "candidates": [
+            {
+              "name": "John Lee",
+              "party": "REP",
+              "votes": 179,
+              "pct": 81.7351598173516,
+              "isWinner": true
+            },
+            {
+              "name": "Steven Horsford",
+              "party": "DEM",
+              "votes": 37,
+              "pct": 16.894977168949772,
+              "isWinner": false
+            },
+            {
+              "name": "Tim Ferreira",
+              "party": "LPN",
+              "votes": 3,
+              "pct": 1.36986301369863,
+              "isWinner": false
+            },
+            {
+              "name": "Russell Best",
+              "party": "IAP",
+              "votes": 0,
+              "pct": 0,
+              "isWinner": false
+            }
+          ]
+        },
+        "Mineral": {
+          "total_votes": 2224,
+          "winner": "REP",
+          "winner_name": "John Lee",
+          "margin": -26.70863309352518,
+          "candidates": [
+            {
+              "name": "John Lee",
+              "party": "REP",
+              "votes": 1360,
+              "pct": 61.15107913669065,
+              "isWinner": true
+            },
+            {
+              "name": "Steven Horsford",
+              "party": "DEM",
+              "votes": 766,
+              "pct": 34.44244604316547,
+              "isWinner": false
+            },
+            {
+              "name": "Russell Best",
+              "party": "IAP",
+              "votes": 60,
+              "pct": 2.697841726618705,
+              "isWinner": false
+            },
+            {
+              "name": "Tim Ferreira",
+              "party": "LPN",
+              "votes": 38,
+              "pct": 1.70863309352518,
+              "isWinner": false
+            }
+          ]
+        },
+        "Nye": {
+          "total_votes": 26474,
+          "winner": "REP",
+          "winner_name": "John Lee",
+          "margin": -35.60474427740425,
+          "candidates": [
+            {
+              "name": "John Lee",
+              "party": "REP",
+              "votes": 17559,
+              "pct": 66.32545138626577,
+              "isWinner": true
+            },
+            {
+              "name": "Steven Horsford",
+              "party": "DEM",
+              "votes": 8133,
+              "pct": 30.72070710886152,
+              "isWinner": false
+            },
+            {
+              "name": "Russell Best",
+              "party": "IAP",
+              "votes": 494,
+              "pct": 1.8659817179119136,
+              "isWinner": false
+            },
+            {
+              "name": "Tim Ferreira",
+              "party": "LPN",
+              "votes": 288,
+              "pct": 1.0878597869607918,
+              "isWinner": false
+            }
+          ]
+        }
+      }
+    }
+  }
+}
